@@ -1,6 +1,6 @@
 import MainContainer from "./Containers/MainContainer";
 import { Title } from "./Titles/Titles";
-
+import Navbar from "./Navbar/Navbar";
 import { Outlet, Navigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
 import { useContext } from "react";
@@ -16,9 +16,14 @@ const ProtectedRoutes = () => {
           </MainContainer>
         );
       case true:
-        return <Outlet />;
+        return (
+          <>
+            <Navbar />
+            <Outlet />
+          </>
+        );
       case false:
-        return <Navigate to="/auth" />;
+        return <Navigate to='/auth' />;
     }
   };
 

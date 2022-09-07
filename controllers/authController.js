@@ -86,7 +86,9 @@ const auth_register = async (req, res) => {
 };
 
 const auth_logout = async (req, res) => {
+  console.log("logout");
   if (req.session.userId) {
+    res.status(200).json({ message: "Logged Out" });
     req.session.destroy();
   } else {
     res.status(401).send("Please Login");

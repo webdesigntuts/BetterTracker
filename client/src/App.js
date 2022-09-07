@@ -1,4 +1,7 @@
+//GLOBAL STYLES
 import "./styles/App.scss";
+
+//REACT ROUTER
 import { Routes, Route } from "react-router-dom";
 
 //COMPONENTS
@@ -28,7 +31,6 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <PageContainer optionClass={"pageContainer"}>
-            <Navbar />
             <div className='mobileMenu'>
               <MobileNavbar />
             </div>
