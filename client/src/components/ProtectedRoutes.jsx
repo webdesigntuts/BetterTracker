@@ -2,11 +2,10 @@ import MainContainer from "./Containers/MainContainer";
 import { Title } from "./Titles/Titles";
 import Navbar from "./Navbar/Navbar";
 import { Outlet, Navigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthProvider";
-import { useContext } from "react";
+import useAuth from "../context/AuthProvider";
 
 const ProtectedRoutes = () => {
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
   const authHandler = () => {
     switch (auth) {
       default:

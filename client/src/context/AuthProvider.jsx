@@ -1,9 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { useUser } from "../queries/user";
 import { queryClient } from "../constants/config";
-import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import { useLocation } from "react-router-dom";
 
 const AuthContext = createContext({
   auth: false,
@@ -12,11 +10,8 @@ const AuthContext = createContext({
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState();
-  const { data: user, isError } = useUser();
+  const { data: user } = useUser();
   const value = { auth, setAuth };
-
-  const Navigate = useNavigate();
-  const location = useLocation();
 
   useEffect(() => {
     if (!auth) {
@@ -25,7 +20,7 @@ const AuthProvider = ({ children }) => {
     }
 
     if (user?.data?.userId) setAuth(true);
-  }, [user, isError, auth]);
+  }, [user, auth]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
