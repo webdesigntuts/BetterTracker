@@ -1,0 +1,74 @@
+.container {
+    .iconContainer {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        border: 2px solid transparent;
+        background: var(--color-red-300);
+        cursor: pointer;
+        transition: border-color ease-in-out 250ms;
+        transition: background ease-in-out 250ms;
+
+        &:hover {
+            border-color: var(--color-red-600);
+            background: whitesmoke;
+            svg {
+                color: var(--color-red-600);
+            }
+        }
+        svg {
+            width: 23px;
+            height: 23px;
+            color: whitesmoke;
+            transition: color ease-in-out 250ms;
+        }
+    }
+
+    .bars {
+        margin-top: 3rem;
+        margin-right: 1rem;
+    }
+
+    .times {
+        border-color: whitesmoke;
+    }
+
+    nav {
+        padding: 2rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: var(--color-red-300);
+        transform: translateX(100%);
+        min-height: 100vh;
+        transition: transform 300ms ease-in-out;
+        border-left: 2px solid var(--color-red-600);
+        ul {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-end;
+        }
+    }
+
+    .navActive {
+        transform: translateX(0);
+    }
+}
+
+.linkColor {
+    h2,
+    h3,
+    span {
+        color: whitesmoke;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color ease-in-out 250ms;
+        &:hover {
+            color: var(--color-active);
+        }
+    }
+}

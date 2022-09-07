@@ -1,0 +1,33 @@
+{
+  "name": "App",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "frontend": "cd client && npm run start",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\"",
+    "buildClient": "cd client && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.3.1",
+    "@quixo3/prisma-session-store": "^3.1.9",
+    "ajv-formats": "^2.1.1",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "express-session": "^1.17.3",
+    "luxon": "^2.3.1"
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0",
+    "nodemon": "^2.0.15",
+    "prisma": "^4.3.1"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}

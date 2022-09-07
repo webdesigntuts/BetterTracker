@@ -1,0 +1,35 @@
+.container {
+    display: flex;
+}
+
+.main {
+    margin-top: 1.25rem;
+    margin-right: 2rem;
+    width: 100%;
+    @media screen and (max-width: 820px) {
+        margin-right: 0;
+    }
+}
+
+.searchbar {
+    margin-bottom: 4rem;
+}
+
+.categories {
+    margin-bottom: 4rem;
+}
+
+.transactions {
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+
+.profile {
+    margin-top: 1.5rem;
+    @media screen and (max-width: 820px) {
+        display: none;
+    }
+}

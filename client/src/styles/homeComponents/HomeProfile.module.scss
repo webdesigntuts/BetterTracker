@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 3rem;
+    background: #f8f8f8;
+    border-radius: 10px;
+    @media screen and (max-width: 1100px) {
+        padding: 2rem;
+    }
+
+    .iconContainer {
+        display: flex;
+        padding: 0.3rem;
+        border-radius: 50%;
+        border: 2px solid black;
+        margin-bottom: 2rem;
+        svg {
+            color: black;
+            --svgSize: 3rem;
+            height: var(--svgSize);
+            width: var(--svgSize);
+        }
+    }
+
+    .info {
+        .welcome {
+            display: block;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        .options {
+            a {
+                min-width: 150px;
+                margin-top: 0.5rem;
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                color: var(--color-inactive);
+                span {
+                    font-weight: 400;
+                    width: 100%;
+                    font-size: 1rem;
+                }
+                svg {
+                    --svgSize: 1.5rem;
+                    height: var(--svgSize);
+                    width: var(--svgSize);
+                }
+                transition: color 200ms ease-in-out;
+                &:hover {
+                    color: var(--color-active);
+                }
+            }
+        }
+    }
+}

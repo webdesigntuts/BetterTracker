@@ -1,0 +1,41 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    span {
+        color: #333;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    input {
+        width: 100%;
+        max-width: 350px;
+        font-size: 1rem;
+        padding: 0.8rem 0.5rem;
+        background: #ececec;
+        margin-bottom: 1rem;
+    }
+
+    button {
+        cursor: pointer;
+        transition: all ease-in-out 300ms;
+        padding: 0.2rem 0.5rem;
+        border-radius: 10px;
+        &:hover {
+            color: whitesmoke;
+            background: #333;
+        }
+    }
+}
+
+.registerForm {
+    margin-top: 5rem;
+}

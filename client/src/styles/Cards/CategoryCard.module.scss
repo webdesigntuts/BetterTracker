@@ -1,0 +1,29 @@
+.container {
+    border-radius: 10px;
+    display: inline-block;
+    width: fit-content;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    .inner {
+        display: flex;
+        align-items: center;
+        gap: 3rem;
+        padding: 1.2rem 2rem;
+        .iconContainer {
+            display: flex;
+            svg {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        .info {
+            color: whitesmoke;
+            .title {
+                font-size: 1.2rem;
+            }
+            .money {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

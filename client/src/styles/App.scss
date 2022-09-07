@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+//POPPINS GOOGLE FONT
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    line-height: 1.5;
+    border: none;
+    outline: none;
+    list-style: none;
+    font-family: "Poppins", sans-serif;
+    text-decoration: none;
+}
+
+:root {
+    //CUSTOM PROPERTIES
+    --color-active: #363636;
+    --color-inactive: #aeaeae;
+    --color-red-100: #ffbece;
+    --color-red-300: #fe7798;
+    --color-red-600: #ff6275;
+    --color-green-300: #e4f1d5;
+    --color-green-600: #92c44c;
+    --color-blue-300: #b7dffd;
+    --color-blue-600: #5a92d6;
+    --color-yellow-300: #fdeacc;
+    --color-yellow-600: #f8aa35;
+}
+
+.App {
+    overflow-x: hidden;
+}
+
+.pageContainer {
+    display: flex;
+    user-select: none;
+}
+
+.mobileMenu {
+    display: none;
+    @media screen and (max-width: 768px) {
+        z-index: 100;
+        display: block;
+        position: fixed;
+        top: 0;
+        right: 0;
+    }
+}
