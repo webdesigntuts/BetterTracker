@@ -10,25 +10,25 @@ const AuthGuard = ({ children }) => {
     isRefetching: userRefetching,
   } = useUser();
 
-  const location = useLocation();
+  const { pathname } = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.data?.userId) {
-      if (location.pathname === "/auth" || location.pathname === "/register") {
+      if (pathname === "/auth" || pathname === "/register") {
         navigate("/");
-      } else navigate(location.pathname);
+      } else navigate(pathname);
     }
 
     if (!userLoading && !user?.data && !userRefetching) {
-      if (location.pathname !== "/auth" && location.pathname !== "/register") {
+      if (pathname !== "/auth" && pathname !== "/register") {
         queryClient.removeQueries();
         navigate("/auth");
         return;
       }
       return;
     }
-  }, [user, userLoading, userRefetching]);
+  }, [user, userLoading, userRefetching, pathname]);
 
   return (
     <>
