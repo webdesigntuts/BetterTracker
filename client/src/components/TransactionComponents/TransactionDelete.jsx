@@ -83,7 +83,7 @@ const DeleteTransactionForm = () => {
       {/* RESULTS */}
       <div className={styles.results}>
         {data &&
-          data?.data.map((tr, index) => {
+          data?.data?.transactions?.map((tr, index) => {
             return (
               <div key={index} className={styles.container}>
                 <div className={styles.deleteContainer}>

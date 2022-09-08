@@ -34,8 +34,9 @@
 
     .results {
         margin-top: 1.2rem;
+        display: flex;
+        flex-wrap: wrap;
         .container {
-            display: inline-block;
             @media screen and (max-width: 500px) {
                 width: 100%;
                 display: unset;
@@ -46,7 +47,7 @@
                 gap: 2rem;
                 margin-right: 2rem;
                 margin-bottom: 2rem;
-                width: 400px;
+
                 @media screen and (max-width: 500px) {
                     margin-right: 0;
                     justify-content: space-between;

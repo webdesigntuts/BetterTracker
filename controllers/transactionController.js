@@ -27,7 +27,6 @@ const transaction_post = async (req, res) => {
     });
     res.status(200).send("success");
   } catch (e) {
-    console.log(e);
     res.status(400).json({ message: "Something went wrong" });
   }
 };
@@ -80,13 +79,6 @@ const transactions_get = async (req, res) => {
         },
       });
 
-      console.log("--------------------------------------------------");
-      console.log("length", transactions.length);
-      console.log("take", take);
-      console.log(transactions);
-
-      console.log(transactions.length > take ? true : false);
-
       res.json({
         transactions:
           transactions?.length > take
@@ -95,7 +87,6 @@ const transactions_get = async (req, res) => {
         hasMore: transactions.length > take ? true : false,
       });
     } catch (e) {
-      console.log(e);
       res.status(500).json({ message: "Something went wrong" });
     }
   } else res.status(401).send("please login");
@@ -104,6 +95,7 @@ const transactions_get = async (req, res) => {
 const transaction_delete = async (req, res) => {
   if (req.session.userId) {
     const transactionId = req.params.transactionId;
+
     let tr;
     try {
       tr = await prisma.transaction.deleteMany({
@@ -112,16 +104,12 @@ const transaction_delete = async (req, res) => {
           userId: req.session.userId,
         },
       });
-    } catch (e) {
-      res.status(500).json({ message: "Something went wrong" });
-      return;
-    }
 
-    if (tr?.count) {
       res.status(200).send("success");
-      return;
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: "Something went wrong" });
     }
-    res.status(400).send("error");
   } else {
     res.status(401).send("please login");
   }
