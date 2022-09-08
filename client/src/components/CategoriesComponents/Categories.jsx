@@ -34,7 +34,6 @@ const Categories = () => {
 
   useEffect(() => {
     fetchTransactions();
-    console.log(FilteredTransactions);
   }, [skip]);
 
   return (
