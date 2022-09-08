@@ -39,9 +39,6 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <AuthGuard>
           <PageContainer optionClass={styles.pageContainer}>
-            <div className={styles.mobileMenu}>
-              <MobileNavbar />
-            </div>
             <Routes>
               {/* LOGIN PAGE */}
               <Route path='/auth' element={<Auth />} />

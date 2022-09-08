@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useLoginUser } from "../queries/user";
 import { Link } from "react-router-dom";
 import { queryClient } from "../constants/config";
+import Spinner from "../components/Spinner";
 
 const Auth = () => {
   //LOGIN
@@ -16,7 +17,7 @@ const Auth = () => {
     password: pw,
   };
 
-  const { mutate: loginHandler } = useLoginUser();
+  const { mutate: loginHandler, isLoading: loggingIn } = useLoginUser();
 
   return (
     <MainContainer>
@@ -52,6 +53,24 @@ const Auth = () => {
         </div>
       </form>
       <Link to='/register'>Don't have an acc ? </Link>
+      {loggingIn && (
+        <div
+          style={{
+            position: "fixed",
+            top: "0",
+            left: "0",
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "rgba(0,0,0,0.5)",
+          }}
+        >
+          <Spinner />
+        </div>
+      )}
     </MainContainer>
   );
 };
