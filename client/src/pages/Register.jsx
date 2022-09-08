@@ -6,6 +6,7 @@ import { useLoginUser } from "../queries/user";
 import { useRegisterUser } from "../queries/user";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../context/AuthProvider";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   //REGISTER
@@ -94,6 +95,7 @@ const Register = () => {
           )}
         </div>
       </form>
+      <Link to='/auth'>Already have and acc ?</Link>
     </MainContainer>
   );
 };

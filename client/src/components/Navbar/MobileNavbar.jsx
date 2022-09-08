@@ -8,7 +8,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { queryClient } from "../../constants/config";
 
 //UTILS
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogoutUser } from "../../queries/user";
 
@@ -17,14 +17,7 @@ const MobileNavbar = () => {
   const [navOpen, setNavOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { mutate: logoutHandler, isSuccess } = useLogoutUser();
-  useEffect(() => {
-    if (isSuccess) {
-      queryClient.removeQueries();
-      setAuth(false);
-      if (!auth) navigate("auth");
-    }
-  }, [isSuccess]);
+  const { mutate: logoutHandler } = useLogoutUser();
 
   const closeNav = () => {
     setNavOpen(false);
@@ -51,7 +44,7 @@ const MobileNavbar = () => {
 
               {/* HOME */}
               <ListItemLink
-                url=""
+                url=''
                 optionClass={styles.linkColor}
                 clickHandler={closeNav}
               >
@@ -60,7 +53,7 @@ const MobileNavbar = () => {
 
               {/* CATEGORIES */}
               <ListItemLink
-                url="categories"
+                url='categories'
                 optionClass={styles.linkColor}
                 clickHandler={closeNav}
               >
@@ -69,7 +62,7 @@ const MobileNavbar = () => {
 
               {/* TRANSACTIONS */}
               <ListItemLink
-                url="transactions"
+                url='transactions'
                 optionClass={styles.linkColor}
                 clickHandler={closeNav}
               >
@@ -78,7 +71,7 @@ const MobileNavbar = () => {
 
               {/* Wallet */}
               <ListItemLink
-                url="wallet"
+                url='wallet'
                 optionClass={styles.linkColor}
                 clickHandler={closeNav}
               >
@@ -88,7 +81,7 @@ const MobileNavbar = () => {
               {/* Profile */}
               <div className={styles.mobileMenuLinks}>
                 <ListItemLink
-                  url="profile"
+                  url='profile'
                   optionClass={styles.linkColor}
                   clickHandler={closeNav}
                 >
@@ -99,7 +92,7 @@ const MobileNavbar = () => {
               {/* Settings */}
               <div className={styles.mobileMenuLinks}>
                 <ListItemLink
-                  url="settings"
+                  url='settings'
                   optionClass={styles.linkColor}
                   clickHandler={closeNav}
                 >
@@ -109,8 +102,17 @@ const MobileNavbar = () => {
 
               {/* AUTH MENU */}
               <ListItemLink
-                url="logout"
-                clickHandler={logoutHandler}
+                url='logout'
+                clickHandler={() => {
+                  logoutHandler(null, {
+                    onSuccess: () => {
+                      queryClient.removeQueries();
+                      queryClient.cancelQueries();
+                      setAuth(false);
+                      navigate("/auth");
+                    },
+                  });
+                }}
                 optionClass={styles.linkColor}
               >
                 <h3>Logout</h3>

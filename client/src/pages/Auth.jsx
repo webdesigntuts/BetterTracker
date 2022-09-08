@@ -1,37 +1,22 @@
 import styles from "../styles/authComponents/Auth.module.scss";
 import MainContainer from "../components/Containers/MainContainer";
 import { Title } from "../components/Titles/Titles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLoginUser } from "../queries/user";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import useAuth from "../context/AuthProvider";
+import { queryClient } from "../constants/config";
 
 const Auth = () => {
   //LOGIN
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
 
-  //CONTEXT
-  const { auth, setAuth } = useAuth();
-
-  //navigate
-  const navigate = useNavigate();
-
   let body = {
     email: email,
     password: pw,
   };
 
-  const {
-    mutate: loginHandler,
-    isError: loginError,
-    error: loginErr,
-  } = useLoginUser();
-
-  useEffect(() => {
-    if (auth) navigate("/");
-  });
+  const { mutate: loginHandler } = useLoginUser();
 
   return (
     <MainContainer>
@@ -58,10 +43,7 @@ const Auth = () => {
           <button
             onClick={() =>
               loginHandler(body, {
-                onError: () => {
-                  console.log(loginErr);
-                },
-                onSuccess: () => setAuth(true),
+                onSuccess: () => queryClient.invalidateQueries("user"),
               })
             }
           >

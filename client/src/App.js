@@ -8,7 +8,7 @@ import { Routes, Route } from "react-router-dom";
 import PageContainer from "./components/Containers/PageContainer";
 import MobileNavbar from "./components/Navbar/MobileNavbar";
 import MainContainer from "./components/Containers/MainContainer";
-import ProtectedRoutes from "./components/ProtectedRoutes";
+import PageLayout from "./components/PageLayout";
 import { AuthProvider } from "./context/AuthProvider";
 
 //PAGES
@@ -47,8 +47,8 @@ function App() {
               <Route path='/auth' element={<Auth />} />
               {/* REGISTER PAGE */}
               <Route path='/register' element={<Register />} />
-              {/* PROTECTED ROUTES */}
-              <Route element={<ProtectedRoutes />}>
+              {/* PAGE LAYOUT */}
+              <Route element={<PageLayout />}>
                 {/* HOME */}
                 <Route path='/' element={<Home />} />
                 {/* SETTINGS */}

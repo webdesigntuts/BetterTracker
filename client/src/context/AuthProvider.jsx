@@ -11,29 +11,38 @@ const AuthContext = createContext({
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState();
-  const { data: user, isLoading: userLoading } = useUser();
+  const {
+    data: user,
+    isLoading: userLoading,
+    isRefetching: userRefetching,
+  } = useUser();
   const value = { auth, setAuth };
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (user?.data?.userId) {
-      console.info("SET AUTH");
-      setAuth(true);
+      console.log("user", user);
+      if (location.pathname === "/auth" || location.pathname === "/register") {
+        navigate("/");
+      } else navigate(location.pathname);
     }
 
-    if (!auth && !userLoading) {
+    if (!userLoading && !user?.data && !userRefetching) {
       if (location.pathname !== "/auth" && location.pathname !== "/register") {
-        console.log("nav to auth");
         queryClient.removeQueries();
         navigate("/auth");
         return;
       }
       return;
     }
-  }, [user, auth, userLoading]);
+  }, [user, userLoading, userRefetching]);
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {userLoading ? <div>Loading...</div> : children}
+    </AuthContext.Provider>
+  );
 };
 
 const useAuth = () => useContext(AuthContext);

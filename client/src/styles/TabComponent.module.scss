@@ -46,6 +46,8 @@
         }
 
         .active {
+            transition: background-color 200ms ease-in-out;
+            transition: color 200ms ease-in-out;
             background: hotpink;
             color: whitesmoke;
         }

@@ -67,11 +67,11 @@ const Navbar = () => {
           <button
             onClick={() => {
               logoutHandler(null, {
-                onError: () => {
-                  setAuth(false);
-                },
                 onSuccess: () => {
+                  queryClient.removeQueries();
+                  queryClient.cancelQueries();
                   setAuth(false);
+                  navigate("/auth");
                 },
               });
             }}

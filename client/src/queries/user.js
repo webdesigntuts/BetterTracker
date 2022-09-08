@@ -27,7 +27,7 @@ const userUpdatePassword = async (body) => {
 
 const useUser = () =>
   useQuery("user", fetchUser, {
-    refetchOnWindowFocus: true,
+    refetchOnWindowFocus: false,
     retry: false,
   });
 
