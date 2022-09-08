@@ -21,15 +21,20 @@ const Categories = () => {
   const [order, setOrder] = useState("asc");
   const { data: ctgs } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
+  const [take, setTake] = useState(2);
   const { data: FilteredTransactions, refetch: fetchTransactions } =
     useTransactionsGet({
       firstDate: timeSpan,
       category: categories ? categories : undefined,
       [sortingField]: order,
       skip: skip,
-      take: 10,
+      take: take,
       key: "CategoriesTrs",
     });
+
+  useEffect(() => {
+    fetchTransactions();
+  }, [skip]);
 
   return (
     <div className={styles.container}>
@@ -150,7 +155,12 @@ const Categories = () => {
 
       {/* RESULTS */}
       <div className={styles.results}>
-        <button className={styles.btn} onClick={() => fetchTransactions()}>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            fetchTransactions();
+          }}
+        >
           Show Results
         </button>
         <div className={styles.inner}>
@@ -169,6 +179,24 @@ const Categories = () => {
             }
           )}
         </div>
+        {FilteredTransactions?.data?.hasMore && (
+          <div
+            onClick={() => {
+              setSkip((prev) => prev + take);
+            }}
+          >
+            Next Page
+          </div>
+        )}
+        {skip - take >= 0 && (
+          <div
+            onClick={() => {
+              setSkip((prev) => prev - take);
+            }}
+          >
+            Prev Page
+          </div>
+        )}
       </div>
     </div>
   );

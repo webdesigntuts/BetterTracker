@@ -80,8 +80,18 @@ const transactions_get = async (req, res) => {
         },
       });
 
+      console.log("--------------------------------------------------");
+      console.log("length", transactions.length);
+      console.log("take", take);
+      console.log(transactions);
+
+      console.log(transactions.length > take ? true : false);
+
       res.json({
-        transactions: transactions.slice(0, -1),
+        transactions:
+          transactions?.length > take
+            ? transactions.slice(0, -1)
+            : transactions,
         hasMore: transactions.length > take ? true : false,
       });
     } catch (e) {
