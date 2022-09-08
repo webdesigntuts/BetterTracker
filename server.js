@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000;
 const { prisma } = require("./constats/config");
 
 //SERVER CLIENT FOLDER IE REACT BUILD
-app.use(express.static(path.join(__dirname, "client")));
+app.use(express.static(path.join(__dirname, "clientBuild")));
 
 //CORS
 //ADD YOUR URL HERE
