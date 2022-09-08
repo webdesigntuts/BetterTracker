@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import { useUser } from "../queries/user";
 import { queryClient } from "../constants/config";
 import { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AuthContext = createContext({
   auth: false,
@@ -12,13 +13,18 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState();
   const { data: user } = useUser();
   const value = { auth, setAuth };
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!auth) {
+      if (location.pathname !== "/auth") {
+        navigate("/auth");
+        return;
+      }
       queryClient.removeQueries();
       return;
     }
-
     if (user?.data?.userId) setAuth(true);
   }, [user, auth]);
 
