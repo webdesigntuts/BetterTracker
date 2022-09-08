@@ -1,4 +1,18 @@
-@mixin pinkButton {
+@mixin pinkButton($width: auto, $height: auto) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    width: $width;
+    height: $height;
+    background: var(--color-red-300);
+    border-radius: 10px;
+    transition: background-color 200ms ease-in-out;
+    transition: color 200ms ease-in-out;
+    &:hover {
+        background: hotpink;
+    }
 }
 
 @mixin pinkLink($width: auto, $height: auto) {
@@ -12,6 +26,7 @@
     background: var(--color-red-300);
     transition: background-color 200ms ease-in-out;
     transition: color 200ms ease-in-out;
+
     &:hover {
         background: hotpink;
         color: whitesmoke;
@@ -29,4 +44,13 @@
 }
 
 @mixin selectStyle {
+    background: #ececec;
+    color: black;
+    width: 180px;
+    padding: 0.6rem;
+    padding-left: 0;
+    option {
+        padding: 1rem;
+        background: #ececec;
+    }
 }

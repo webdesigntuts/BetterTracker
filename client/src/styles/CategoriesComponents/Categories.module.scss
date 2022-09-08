@@ -1,8 +1,9 @@
+@use "../mixins";
 .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     .filterContainer {
-        display: inline-block;
-        margin-right: 1.2rem;
-        margin-bottom: 1.2rem;
         border: 1px solid var(--color-inactive);
         padding: 0.5rem;
         border-radius: 10px;
@@ -11,39 +12,20 @@
     .filter {
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
         gap: 0.3rem;
     }
 
     select {
-        display: inline-block;
-        font-size: 1rem;
-        background: #ececec;
-        color: black;
-        width: 180px;
-        padding: 0.6rem;
-        padding-left: 0;
-        option {
-            padding: 1rem;
-            background: #ececec;
-        }
+        @include mixins.selectStyle;
+        font-size: 0.9rem;
     }
 }
 
 .results {
-    margin-top: 2rem;
     .btn {
-        margin-bottom: 1rem;
-        padding: 1rem;
-        border-radius: 10px;
-        color: #333;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all ease-in-out 200ms;
-        &:hover {
-            background: var(--color-active);
-            color: whitesmoke;
-        }
+        @include mixins.pinkButton(140px, 40px);
+        margin-top: 2rem;
+        margin-bottom: 2rem;
     }
     .inner {
         display: flex;

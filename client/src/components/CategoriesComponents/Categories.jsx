@@ -33,6 +33,7 @@ const Categories = () => {
   return (
     <div className={styles.container}>
       <Title>Categories</Title>
+
       {/* FITLERS */}
       <div className={styles.filters}>
         <div className={styles.filterContainer}>
@@ -144,27 +145,27 @@ const Categories = () => {
             </select>
           </div>
         </div>
+      </div>
 
-        {/* RESULTS */}
-        <div className={styles.results}>
-          <button className={styles.btn} onClick={() => fetchTransactions()}>
-            Show Results
-          </button>
-          <div className={styles.inner}>
-            {FilteredTransactions &&
-              FilteredTransactions?.data?.map((transaction, index) => {
-                return (
-                  <TransactionCard
-                    key={index}
-                    category={transaction.category.name}
-                    money={transaction.money}
-                    date={DateTime.fromISO(transaction.date).toISODate()}
-                    description={transaction.info}
-                    title={transaction.title}
-                  />
-                );
-              })}
-          </div>
+      {/* RESULTS */}
+      <div className={styles.results}>
+        <button className={styles.btn} onClick={() => fetchTransactions()}>
+          Show Results
+        </button>
+        <div className={styles.inner}>
+          {FilteredTransactions &&
+            FilteredTransactions?.data?.map((transaction, index) => {
+              return (
+                <TransactionCard
+                  key={index}
+                  category={transaction.category.name}
+                  money={transaction.money}
+                  date={DateTime.fromISO(transaction.date).toISODate()}
+                  description={transaction.info}
+                  title={transaction.title}
+                />
+              );
+            })}
         </div>
       </div>
     </div>
