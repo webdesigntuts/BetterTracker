@@ -35,6 +35,27 @@ const categories_post = async (req, res) => {
   }
 };
 
+const category_delete = async (req, res) => {
+  if (req.session.userId) {
+    const { id } = req.params;
+    if (!id) return res.status(400).json({ message: "Please Enter a Name" });
+    try {
+      const ctgs = await prisma.transactionCategory.deleteMany({
+        where: {
+          id: id,
+          userId: req.session.userId,
+        },
+      });
+      res.status(201).json(ctgs);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "Something Went Wrong" });
+    }
+  } else {
+    res.status(401).send("Please Login");
+  }
+};
+
 const categories_transaction_sum = async (req, res) => {
   if (req.session.userId) {
     let firstDate = req.query.first;
@@ -71,4 +92,5 @@ module.exports = {
   categories_get,
   categories_transaction_sum,
   categories_post,
+  category_delete,
 };

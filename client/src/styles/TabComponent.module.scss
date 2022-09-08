@@ -1,0 +1,38 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .tabs {
+        display: flex;
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--color-black);
+            cursor: pointer;
+            width: 125px;
+            height: 50px;
+            background: var(--color-red-300);
+            border-right: 1px solid white;
+            transition: all 300ms ease-in-out;
+            &:hover {
+                background: hotpink;
+                color: whitesmoke;
+            }
+            &:first-child {
+                border-radius: 14px 0 0 14px;
+            }
+            &:last-child {
+                border-radius: 0 14px 14px 0;
+                border: none;
+            }
+        }
+    }
+
+    .children {
+        margin-top: 3rem;
+    }
+}

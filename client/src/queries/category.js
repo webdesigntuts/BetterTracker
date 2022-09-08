@@ -14,6 +14,10 @@ const postCtg = async (props) => {
   return await Ax.post("/category", props);
 };
 
+const deleteCategory = async (params) => {
+  return await Ax.delete(`category/delete/${params}`);
+};
+
 //HOOKS
 const useCategoriesGet = () =>
   useQuery("Categories", getCtgs, {
@@ -25,4 +29,11 @@ const useCategoriesSum = () =>
 
 const useCategoriesPost = () => useMutation("Categories_Post", postCtg);
 
-export { useCategoriesGet, useCategoriesSum, useCategoriesPost };
+const useCategoryDelete = () => useMutation("Category_Delete", deleteCategory);
+
+export {
+  useCategoriesGet,
+  useCategoriesSum,
+  useCategoriesPost,
+  useCategoryDelete,
+};
