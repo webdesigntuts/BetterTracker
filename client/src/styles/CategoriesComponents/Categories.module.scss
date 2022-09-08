@@ -22,6 +22,12 @@
 }
 
 .results {
+    .btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
     .btn {
         @include pinkButton(140px, 40px);
         margin-top: 2rem;

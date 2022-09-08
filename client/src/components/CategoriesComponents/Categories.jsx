@@ -21,7 +21,7 @@ const Categories = () => {
   const [order, setOrder] = useState("asc");
   const { data: ctgs } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
-  const [take, setTake] = useState(2);
+  const [take, setTake] = useState(5);
   const { data: FilteredTransactions, refetch: fetchTransactions } =
     useTransactionsGet({
       firstDate: timeSpan,
@@ -155,14 +155,51 @@ const Categories = () => {
 
       {/* RESULTS */}
       <div className={styles.results}>
-        <button
-          className={styles.btn}
-          onClick={() => {
-            fetchTransactions();
-          }}
-        >
-          Show Results
-        </button>
+        <div className={styles.btns}>
+          {skip === 0 && (
+            <button
+              className={styles.btn}
+              onClick={() => {
+                fetchTransactions();
+              }}
+            >
+              Show Results
+            </button>
+          )}
+
+          {skip !== 0 && (
+            <button
+              className={styles.btn}
+              onClick={() => {
+                setSkip(0);
+              }}
+            >
+              Go to Page 0
+            </button>
+          )}
+
+          {FilteredTransactions?.data?.hasMore && (
+            <button
+              className={styles.btn}
+              onClick={() => {
+                setSkip((prev) => prev + take);
+              }}
+            >
+              Next Page
+            </button>
+          )}
+          {skip - take >= 0 && (
+            <button
+              className={styles.btn}
+              onClick={() => {
+                setSkip((prev) => prev - take);
+              }}
+            >
+              Prev Page
+            </button>
+          )}
+        </div>
+
         <div className={styles.inner}>
           {FilteredTransactions?.data?.transactions?.map(
             (transaction, index) => {
@@ -179,24 +216,6 @@ const Categories = () => {
             }
           )}
         </div>
-        {FilteredTransactions?.data?.hasMore && (
-          <div
-            onClick={() => {
-              setSkip((prev) => prev + take);
-            }}
-          >
-            Next Page
-          </div>
-        )}
-        {skip - take >= 0 && (
-          <div
-            onClick={() => {
-              setSkip((prev) => prev - take);
-            }}
-          >
-            Prev Page
-          </div>
-        )}
       </div>
     </div>
   );

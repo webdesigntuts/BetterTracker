@@ -36,7 +36,7 @@ const Home = () => {
         <div className={styles.categories}>
           <Title>Categories Last 30 Days</Title>
           <div className={styles.content}>
-            {CategoriesSum?.data?.transactions?.map((category, index) => {
+            {/* {CategoriesSum?.data?.transactions?.map((category, index) => {
               return (
                 <CategoryCard
                   key={index}
@@ -44,7 +44,7 @@ const Home = () => {
                   money={category._sum.money.toFixed(2)}
                 />
               );
-            })}
+            })} */}
           </div>
         </div>
 
@@ -53,7 +53,7 @@ const Home = () => {
           <Title>Latest Transactions</Title>
           <div className={styles.content}>
             {/* LATEST TRANSACTIONS */}
-            {transactions &&
+            {/* {transactions &&
               transactions?.data?.map((transaction, index) => {
                 return (
                   <TransactionCard
@@ -65,7 +65,7 @@ const Home = () => {
                     title={transaction.title}
                   />
                 );
-              })}
+              })} */}
           </div>
         </div>
       </div>
