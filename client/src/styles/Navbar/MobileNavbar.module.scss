@@ -1,9 +1,9 @@
 .container {
     display: none;
     @media screen and (max-width: 768px) {
+        position: fixed;
         z-index: 100;
         display: block;
-        position: fixed;
         top: 0;
         right: 0;
     }
@@ -53,6 +53,7 @@
         transform: translateX(100%);
         min-height: 100vh;
         transition: transform 300ms ease-in-out;
+        transition-delay: 200ms;
 
         ul {
             display: flex;
@@ -78,5 +79,21 @@
         &:hover {
             color: var(--color-active);
         }
+    }
+}
+
+.blackBg {
+    display: none;
+    @media screen and (max-width: 768px) {
+        display: flex;
+        z-index: 1;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5);
+        transform: translateX(-100%);
+        transition: transform 300ms ease-in-out;
     }
 }
