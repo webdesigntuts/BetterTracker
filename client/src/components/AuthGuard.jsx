@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useUser } from "../queries/user";
 import { queryClient } from "../constants/config";
 import { useLocation, useNavigate } from "react-router-dom";
+import Spinner from "../components/Spinner";
 const AuthGuard = ({ children }) => {
   const {
     data: user,
@@ -29,7 +30,26 @@ const AuthGuard = ({ children }) => {
     }
   }, [user, userLoading, userRefetching]);
 
-  return <>{userLoading ? <div>Loading...</div> : children}</>;
+  return (
+    <>
+      {userLoading ? (
+        <div
+          style={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      ) : (
+        children
+      )}
+    </>
+  );
 };
 
 export default AuthGuard;
