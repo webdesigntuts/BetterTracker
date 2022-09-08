@@ -1,22 +1,16 @@
-import { createContext, useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useUser } from "../queries/user";
 import { queryClient } from "../constants/config";
-import { useContext } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 
-const AuthContext = createContext({
-  auth: false,
-  setAuth: () => {},
-});
-
-const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState();
+const AuthGuard = ({ children }) => {
   const {
     data: user,
     isLoading: userLoading,
     isRefetching: userRefetching,
   } = useUser();
-  const value = { auth, setAuth };
+
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -38,14 +32,7 @@ const AuthProvider = ({ children }) => {
     }
   }, [user, userLoading, userRefetching]);
 
-  return (
-    <AuthContext.Provider value={value}>
-      {userLoading ? <div>Loading...</div> : children}
-    </AuthContext.Provider>
-  );
+  return <>{userLoading ? <div>Loading...</div> : children}</>;
 };
 
-const useAuth = () => useContext(AuthContext);
-
-export default useAuth;
-export { AuthContext, AuthProvider, useAuth };
+export default AuthGuard;

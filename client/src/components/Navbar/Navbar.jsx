@@ -6,7 +6,6 @@ import ListItemLink from "./ListItemLink";
 
 //UTILS
 import { Link } from "react-router-dom";
-import useAuth from "../../context/AuthProvider";
 
 //REACT QUERY
 import { useLogoutUser } from "../../queries/user";
@@ -18,7 +17,6 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const navigate = useNavigate();
   const { mutate: logoutHandler, isSuccess } = useLogoutUser();
-  const { auth, setAuth } = useAuth();
 
   return (
     <div className={styles.container}>
@@ -70,7 +68,6 @@ const Navbar = () => {
                 onSuccess: () => {
                   queryClient.removeQueries();
                   queryClient.cancelQueries();
-                  setAuth(false);
                   navigate("/auth");
                 },
               });

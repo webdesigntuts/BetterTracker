@@ -1,12 +1,12 @@
 import styles from "../styles/authComponents/Auth.module.scss";
 import MainContainer from "../components/Containers/MainContainer";
 import { Title } from "../components/Titles/Titles";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useLoginUser } from "../queries/user";
 import { useRegisterUser } from "../queries/user";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../context/AuthProvider";
 import { Link } from "react-router-dom";
+import { queryClient } from "../constants/config";
 
 const Register = () => {
   //REGISTER
@@ -32,11 +32,6 @@ const Register = () => {
   } = useLoginUser();
 
   const navigate = useNavigate();
-  const { auth, setAuth } = useAuth();
-
-  useEffect(() => {
-    if (auth) navigate("/");
-  });
 
   return (
     <MainContainer>
@@ -70,7 +65,7 @@ const Register = () => {
                 //ONSUCCESS USE LOGINHANDLER
                 onSuccess: () => {
                   loginHandler(regBody, {
-                    onSuccess: () => setAuth(true),
+                    onSuccess: () => queryClient.invalidateQueries("user"),
                     onError: () => {
                       console.log(loginErr);
                     },

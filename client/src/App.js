@@ -9,7 +9,7 @@ import PageContainer from "./components/Containers/PageContainer";
 import MobileNavbar from "./components/Navbar/MobileNavbar";
 import MainContainer from "./components/Containers/MainContainer";
 import PageLayout from "./components/PageLayout";
-import { AuthProvider } from "./context/AuthProvider";
+import AuthGuard from "./context/AuthGuard";
 
 //PAGES
 import Auth from "./pages/Auth";
@@ -37,7 +37,7 @@ function App() {
   return (
     <div className='App'>
       <QueryClientProvider client={queryClient}>
-        <AuthProvider>
+        <AuthGuard>
           <PageContainer optionClass={"pageContainer"}>
             <div className='mobileMenu'>
               <MobileNavbar />
@@ -81,7 +81,7 @@ function App() {
               </Route>
             </Routes>
           </PageContainer>
-        </AuthProvider>
+        </AuthGuard>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </div>
