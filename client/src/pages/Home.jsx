@@ -1,10 +1,10 @@
 import MainContainer from "../components/Containers/MainContainer";
-import Searchbar from "../components/homeComponents/Searchbar";
+import Searchbar from "../components/HomeComponents/Searchbar";
 import { Title } from "../components/Titles/Titles";
 import CategoryCard from "../components/Cards/CategoryCard";
 import TransactionCard from "../components/Cards/TransactionCard";
-import styles from "../styles/homeComponents/Home.module.scss";
-import HomeProfile from "../components/homeComponents/HomeProfile";
+import styles from "../styles/HomeComponents/Home.module.scss";
+import HomeProfile from "../components/HomeComponents/HomeProfile";
 
 import { DateTime } from "luxon";
 import { useTransactionsGet } from "../queries/transaction";

@@ -19,8 +19,8 @@ import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import TransactionsRoot from "./pages/TransactionsRoot";
 //TRANSACTIONS SUBPAGES
-import AddTransactionForm from "./components/transactionComponents/AddTransactionForm";
-import DeleteTransactionForm from "./components/transactionComponents/DeleteTransactionForm";
+import AddTransactionForm from "./components/TransactionComponents/AddTransactionForm";
+import DeleteTransactionForm from "./components/TransactionComponents/DeleteTransactionForm";
 
 import CategoriesRoot from "./pages/CategoriesRoot";
 //CATEGORIES SUBPAGES

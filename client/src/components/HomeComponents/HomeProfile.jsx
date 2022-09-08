@@ -1,4 +1,4 @@
-import styles from "../../styles/homeComponents/HomeProfile.module.scss";
+import styles from "../../styles/HomeComponents/HomeProfile.module.scss";
 import { BsPerson, BsPencil, BsWallet2 } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -19,15 +19,15 @@ const HomeProfile = () => {
           {data && `Hi ${data?.data.firstName}!`}
         </span>
         <div className={styles.options}>
-          <Link to="profile">
+          <Link to='profile'>
             <span>Profile</span>
             <BsPencil />
           </Link>
-          <Link to="settings">
+          <Link to='settings'>
             <span>Settings</span>
             <IoSettingsOutline />
           </Link>
-          <Link to="wallet">
+          <Link to='wallet'>
             <span>Wallet</span>
             <BsWallet2 />
           </Link>
