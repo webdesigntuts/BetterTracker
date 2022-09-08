@@ -66,12 +66,29 @@ const auth_register = async (req, res) => {
           lastName: "",
         },
       });
+
+      await prisma.transactionCategory.createMany({
+        data: [
+          {
+            name: "Products",
+            userId: newUser.id,
+          },
+          {
+            name: "Entertainment",
+            userId: newUser.id,
+          },
+          {
+            name: "Bills",
+            userId: newUser.id,
+          },
+        ],
+      });
+
+      res.status(200).json({ userId: newUser.id });
     } catch {
       res.status(500).send([{ instancePath: "Err", message: "Err" }]);
       return;
     }
-
-    //ADD DEFAULT CATEGORIES HERE !! TODO
   }
 };
 
