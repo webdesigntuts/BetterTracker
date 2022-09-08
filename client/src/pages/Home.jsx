@@ -27,6 +27,10 @@ const Home = () => {
     fetchTransactions();
   }, []);
 
+  useEffect(() => {
+    console.log(transactions);
+  }, [transactions]);
+
   return (
     <MainContainer optionClass={styles.container}>
       <div className={styles.main}>
@@ -36,7 +40,7 @@ const Home = () => {
         <div className={styles.categories}>
           <Title>Categories Last 30 Days</Title>
           <div className={styles.content}>
-            {/* {CategoriesSum?.data?.transactions?.map((category, index) => {
+            {CategoriesSum?.data?.transactions?.map((category, index) => {
               return (
                 <CategoryCard
                   key={index}
@@ -44,7 +48,7 @@ const Home = () => {
                   money={category._sum.money.toFixed(2)}
                 />
               );
-            })} */}
+            })}
           </div>
         </div>
 
@@ -53,19 +57,18 @@ const Home = () => {
           <Title>Latest Transactions</Title>
           <div className={styles.content}>
             {/* LATEST TRANSACTIONS */}
-            {/* {transactions &&
-              transactions?.data?.map((transaction, index) => {
-                return (
-                  <TransactionCard
-                    key={index}
-                    category={transaction.category.name}
-                    date={DateTime.fromISO(transaction.date).toISODate()}
-                    money={transaction.money.toFixed(2)}
-                    description={transaction.info}
-                    title={transaction.title}
-                  />
-                );
-              })} */}
+            {transactions?.data?.transactions?.map((transaction, index) => {
+              return (
+                <TransactionCard
+                  key={index}
+                  category={transaction?.category?.name}
+                  date={DateTime.fromISO(transaction?.date).toISODate()}
+                  money={transaction?.money?.toFixed(2)}
+                  description={transaction?.info}
+                  title={transaction?.title}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

@@ -21,7 +21,7 @@ const Categories = () => {
   const [order, setOrder] = useState("asc");
   const { data: ctgs } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
-  const [take, setTake] = useState(5);
+  const [take, setTake] = useState(4);
   const { data: FilteredTransactions, refetch: fetchTransactions } =
     useTransactionsGet({
       firstDate: timeSpan,
@@ -34,6 +34,7 @@ const Categories = () => {
 
   useEffect(() => {
     fetchTransactions();
+    console.log(FilteredTransactions);
   }, [skip]);
 
   return (
