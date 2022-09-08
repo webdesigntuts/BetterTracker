@@ -17,7 +17,6 @@ const TransactionDelete = () => {
   const [date, setDate] = useState(DateTime.now().toISODate());
   const [info, setInfo] = useState("");
   const [category, setCategory] = useState("");
-  const [categoryId, setCategoryId] = useState("");
   const { data: ctgs } = useCategoriesGet();
 
   const {
@@ -37,7 +36,7 @@ const TransactionDelete = () => {
   };
 
   useEffect(() => {
-    setCategory(ctgs?.data[0]?.ctgs[0]?.id);
+    setCategory(ctgs?.data?.ctgs[0]?.id);
   }, [ctgs]);
 
   return (
@@ -45,25 +44,25 @@ const TransactionDelete = () => {
       <Title>Add a Transaction</Title>
       <input
         type='text'
-        placeholder='title'
+        placeholder='* Title '
         onChange={(e) => setTitle(e.target.value)}
         value={title}
       />
       <input
         type='number'
-        placeholder='money'
+        placeholder='* Money'
         onChange={(e) => setMoney(e.target.value)}
         value={money}
       />
       <input
         type='date'
-        placeholder='date'
+        placeholder='* Date'
         onChange={(e) => setDate(e.target.value)}
         value={date}
       />
       <input
         type='text'
-        placeholder='info'
+        placeholder='Information'
         onChange={(e) => setInfo(e.target.value)}
         value={info}
       />
@@ -87,8 +86,12 @@ const TransactionDelete = () => {
       <button
         onClick={() => {
           postTransaction(body, {
-            onSuccess: async () => {
-              await queryClient.invalidateQueries("Categories_Sum");
+            onSuccess: () => {
+              queryClient.invalidateQueries("Categories_Sum");
+              setTitle("");
+              setMoney("");
+              setDate(DateTime.now().toISODate());
+              setInfo("");
             },
           });
         }}
@@ -99,7 +102,9 @@ const TransactionDelete = () => {
       {/* ERROR */}
       <div style={{ marginBottom: "1rem" }}>
         {isError ? (
-          <div style={{ color: "red" }}>{JSON?.stringify(error?.message)}</div>
+          <div style={{ color: "red" }}>
+            {"Please Fill The Required Fields"}
+          </div>
         ) : null}
         {isSuccess && <div style={{ color: "green" }}>Success</div>}
       </div>
