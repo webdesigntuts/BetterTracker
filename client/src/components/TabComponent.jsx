@@ -2,7 +2,7 @@ import styles from "../styles/TabComponent.module.scss";
 import { Link, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
-const TabComponent = ({ Tabs }) => {
+const TabComponent = ({ Tabs, baseUrl }) => {
   const { pathname } = useLocation();
   return (
     <div className={styles.container}>
@@ -10,9 +10,9 @@ const TabComponent = ({ Tabs }) => {
         {Tabs?.map((tab, index) => (
           <Link
             key={index}
-            to={`/categories/${tab?.link}`}
+            to={`/${baseUrl}/${tab?.link}`}
             className={
-              `/categories/${tab?.link}` === pathname ? styles.active : ""
+              `/${baseUrl}/${tab?.link}` === pathname ? styles.active : ""
             }
           >
             {tab?.name}

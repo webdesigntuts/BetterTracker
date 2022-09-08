@@ -19,7 +19,7 @@ const CategoriesRoots = () => {
 
   return (
     <MainContainer>
-      <TabComponent Tabs={tabs} />
+      <TabComponent Tabs={tabs} baseUrl='categories' />
     </MainContainer>
   );
 };
