@@ -32,22 +32,7 @@ const AuthGuard = ({ children }) => {
 
   return (
     <>
-      {userLoading ? (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Spinner />
-        </div>
-      ) : (
-        children
-      )}
+      {userLoading ? <Spinner background={"tranparent"} fullPage /> : children}
     </>
   );
 };
