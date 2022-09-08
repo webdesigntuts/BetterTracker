@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { mutate: logoutHandler, isSuccess } = useLogoutUser();
+  const { mutate: logoutHandler } = useLogoutUser();
 
   return (
     <div className={styles.container}>

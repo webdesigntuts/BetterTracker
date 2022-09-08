@@ -1,9 +1,7 @@
 import { useEffect } from "react";
 import { useUser } from "../queries/user";
 import { queryClient } from "../constants/config";
-
 import { useLocation, useNavigate } from "react-router-dom";
-
 const AuthGuard = ({ children }) => {
   const {
     data: user,
@@ -16,7 +14,6 @@ const AuthGuard = ({ children }) => {
 
   useEffect(() => {
     if (user?.data?.userId) {
-      console.log("user", user);
       if (location.pathname === "/auth" || location.pathname === "/register") {
         navigate("/");
       } else navigate(location.pathname);
