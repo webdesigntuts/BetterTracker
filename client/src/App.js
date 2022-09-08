@@ -17,11 +17,11 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import Transactions from "./pages/Transactions";
-// import Categories from "./pages/Categories";
 import CategoriesRoots from "./pages/CategoriesRoots";
 //CATEGORIES SUBPAGES
 import Categories from "./components/CategoriesComponents/Categories";
 import CategoryCreate from "./components/CategoriesComponents/CategoryCreate";
+import CategoryDelete from "./components/CategoriesComponents/CategoryDelete";
 
 //REACT QUERY
 import { ReactQueryDevtools } from "react-query/devtools";
@@ -45,15 +45,16 @@ function App() {
                 {/* HOME */}
                 <Route path='/' element={<Home />} />
                 {/* SETTINGS */}
-                <Route path='/settings' element={<Settings />} />
+                <Route path='settings' element={<Settings />} />
                 {/* PROFILE */}
-                <Route path='/profile' element={<Profile />} />
+                <Route path='profile' element={<Profile />} />
                 {/* TRANSACTIONS */}
-                <Route path='/transactions' element={<Transactions />} />
+                <Route path='transactions' element={<Transactions />} />
                 {/* CATEGORIES */}
-                <Route idex element={<CategoriesRoots />}>
-                  <Route path='/categories' element={<Categories />} />
-                  <Route path='/create' element={<Categories />} />
+                <Route path='categories' element={<CategoriesRoots />}>
+                  <Route path='results' element={<Categories />} />
+                  <Route path='create' element={<CategoryCreate />} />
+                  <Route path='delete' element={<CategoryDelete />} />
                 </Route>
 
                 {/* 404 */}

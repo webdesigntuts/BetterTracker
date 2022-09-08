@@ -1,13 +1,13 @@
 import styles from "../styles/TabComponent.module.scss";
-import { Route, Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
-const TabComponent = ({ children, setActiveTab, Tabs }) => {
+const TabComponent = ({ Tabs }) => {
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
         {Tabs?.map((tab, index) => (
-          <Link key={index} to={`/${tab}`}>
-            {tab}
+          <Link key={index} to={`/categories/${tab?.link}`}>
+            {tab?.name}
           </Link>
         ))}
       </div>
@@ -16,6 +16,19 @@ const TabComponent = ({ children, setActiveTab, Tabs }) => {
       </div>
     </div>
   );
+};
+
+TabComponent.defaultProps = {
+  Tabs: [
+    {
+      name: "All",
+      link: "results",
+    },
+    {
+      name: "Create",
+      link: "create",
+    },
+  ],
 };
 
 export default TabComponent;
