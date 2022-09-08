@@ -105,9 +105,7 @@ const categories_transaction_sum = async (req, res) => {
         };
       });
 
-      console.log(categoriesWithSum);
-
-      res.status(200).json({ categoriesWithSum });
+      res.status(200).json(categoriesWithSum);
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Something Went Wrong" });

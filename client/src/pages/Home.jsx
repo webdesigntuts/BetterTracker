@@ -27,10 +27,6 @@ const Home = () => {
     fetchTransactions();
   }, []);
 
-  useEffect(() => {
-    console.log(CategoriesSum?.data?.categoriesWithSum);
-  }, [CategoriesSum]);
-
   return (
     <MainContainer optionClass={styles.container}>
       <div className={styles.main}>
@@ -40,7 +36,7 @@ const Home = () => {
         <div className={styles.categories}>
           <Title>Categories Last 30 Days</Title>
           <div className={styles.content}>
-            {CategoriesSum?.data?.categoriesWithSum?.map((category, index) => {
+            {CategoriesSum?.data?.map((category, index) => {
               return (
                 <CategoryCard
                   key={index}
