@@ -17,6 +17,11 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (user?.data?.userId) {
+      console.info("SET AUTH");
+      setAuth(true);
+    }
+
     if (!auth && !userLoading) {
       if (location.pathname !== "/auth") {
         console.log("nav to auth");
@@ -25,11 +30,6 @@ const AuthProvider = ({ children }) => {
         return;
       }
       return;
-    }
-
-    if (user?.data?.userId) {
-      console.info("SET AUTH");
-      setAuth(true);
     }
   }, [user, auth, userLoading]);
 

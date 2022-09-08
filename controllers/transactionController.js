@@ -44,12 +44,10 @@ const transactions_get = async (req, res) => {
       take = 5;
     }
 
-    const transactions = await prisma.transaction
-      .findMany({
+    try {
+      const transactions = await prisma.transaction.findMany({
         where: {
-          wallet: {
-            userId: req.session.userId,
-          },
+          userId: req.session.userId,
           date: {
             gte:
               firstDate != undefined
@@ -60,9 +58,7 @@ const transactions_get = async (req, res) => {
                 ? DateTime.fromISO(lastDate).toISO()
                 : DateTime.now().toISO(),
           },
-          transactionCategoryId: {
-            equals: category != undefined ? parseInt(category) : undefined,
-          },
+          transactionCategoryId: category,
         },
         skip: parseInt(skip),
         take: parseInt(take),
@@ -82,33 +78,30 @@ const transactions_get = async (req, res) => {
             },
           },
         },
-      })
-      .catch((e) => {
-        res.status(400).send("error");
       });
-    res.json(transactions);
+
+      res.json(transactions);
+    } catch (e) {
+      console.log(e);
+      res.status(500).json({ message: "Something went wrong" });
+    }
   } else res.status(401).send("please login");
 };
 
 const transaction_delete = async (req, res) => {
   if (req.session.userId) {
-    let transactionId = parseInt(req.params.transactionId);
+    const transactionId = req.params.transactionId;
     let tr;
     try {
       tr = await prisma.transaction.deleteMany({
         where: {
           id: transactionId,
-          wallet: {
-            userId: req.session.userId,
-          },
+          userId: req.session.userId,
         },
       });
     } catch (e) {
-      res
-        .status(500)
-        .send(
-          "something went wront with the deletion of the particular transaction"
-        );
+      // console.log(e);
+      res.status(500).json({ message: "Something went wrong" });
       return;
     }
 

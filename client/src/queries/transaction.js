@@ -25,6 +25,7 @@ const useTransactionsGet = ({
   skip,
   take,
   key,
+  enabled,
 }) =>
   useQuery(
     key,
@@ -40,7 +41,7 @@ const useTransactionsGet = ({
       }),
     {
       refetchOnWindowFocus: false,
-      enabled: false,
+      enabled: enabled || false,
       keepPreviousData: true,
     }
   );

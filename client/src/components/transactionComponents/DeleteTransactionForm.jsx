@@ -30,6 +30,9 @@ const DeleteTransactionForm = () => {
       .toISODate()
   );
   const { mutate: deleteTr } = useTrasactionDelete();
+
+  const [enableTrs, setEnableTrs] = useState(false);
+  //GET TRANSACTIONS
   const {
     data,
     refetch: fetchTransactions,
@@ -37,6 +40,7 @@ const DeleteTransactionForm = () => {
   } = useTransactionsGet({
     firstDate: firstDate,
     lastDate: lastDate,
+    enabled: enableTrs,
     key: "Trs",
   });
 
@@ -46,26 +50,32 @@ const DeleteTransactionForm = () => {
       <div className={styles.dateSearchFilter}>
         {/* FIRST DATE */}
         <div className={styles.date}>
-          <label htmlFor="firstDate">From :</label>
+          <label htmlFor='firstDate'>From :</label>
           <input
-            type="date"
-            name="firstDate"
+            type='date'
+            name='firstDate'
             value={firstDate}
             onChange={(e) => setFirstDate(e.target.value)}
           />
         </div>
         {/* LAST DATE */}
         <div className={styles.date}>
-          <label htmlFor="lastDate">To :</label>
+          <label htmlFor='lastDate'>To :</label>
           <input
-            type="date"
-            name="lastDate"
+            type='date'
+            name='lastDate'
             value={lastDate}
             onChange={(e) => setLastDate(e.target.value)}
           />
         </div>
         {/* ACTION BUTTON */}
-        <button className={styles.btn} onClick={() => fetchTransactions()}>
+        <button
+          className={styles.btn}
+          onClick={() => {
+            fetchTransactions();
+            setEnableTrs(true);
+          }}
+        >
           Show Transactions
         </button>
       </div>
@@ -95,12 +105,10 @@ const DeleteTransactionForm = () => {
                         : {}
                     }
                     onClick={() => {
+                      console.log(tr.id);
                       deleteTr(tr.id, {
                         onSuccess: async () => {
-                          await queryClient
-                            .invalidateQueries("Trs")
-                            .then(await fetchTransactions())
-                            .catch();
+                          queryClient.invalidateQueries("Trs");
                         },
                       });
                     }}

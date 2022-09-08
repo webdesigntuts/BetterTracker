@@ -47,9 +47,9 @@ const Navbar = () => {
           </ListItemLink>
 
           {/* Wallet */}
-          <ListItemLink url='wallet'>
+          {/* <ListItemLink url='wallet'>
             <h3>Wallet</h3>
-          </ListItemLink>
+          </ListItemLink> */}
 
           {/* Profile */}
           <div className={styles.mobileMenuLinks}>
