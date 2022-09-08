@@ -14,6 +14,27 @@ const categories_get = async (req, res) => {
   } else res.status(401).send("Please Login");
 };
 
+const categories_post = async (req, res) => {
+  if (req.session.userId) {
+    const { name } = req.body;
+    if (!name) return res.status(400).json({ message: "Please Enter a Name" });
+    try {
+      const ctgs = await prisma.transactionCategory.create({
+        data: {
+          name: name,
+          userId: req.session.userId,
+        },
+      });
+      res.status(201).json(ctgs);
+    } catch (e) {
+      console.log(e);
+      res.status(400).json({ message: "Something Went Wrong" });
+    }
+  } else {
+    res.status(401).send("Please Login");
+  }
+};
+
 const categories_transaction_sum = async (req, res) => {
   if (req.session.userId) {
     let firstDate = req.query.first;
@@ -49,4 +70,5 @@ const categories_transaction_sum = async (req, res) => {
 module.exports = {
   categories_get,
   categories_transaction_sum,
+  categories_post,
 };

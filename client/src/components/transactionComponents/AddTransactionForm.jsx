@@ -4,24 +4,21 @@ import styles from "../../styles/transactionComponents/AddTransactionForm.module
 import { Title } from "../Titles/Titles";
 
 //UTILS
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useCategoriesGet } from "../../queries/category";
 import { useTransactionPost } from "../../queries/transaction";
 import { DateTime } from "luxon";
 import { queryClient } from "../../constants/config";
+import { useEffect } from "react";
 
 const AddTransactionForm = () => {
   const [title, setTitle] = useState("");
   const [money, setMoney] = useState("");
   const [date, setDate] = useState(DateTime.now().toISODate());
   const [info, setInfo] = useState("");
-  const [category, setCategory] = useState(10);
-
+  const [category, setCategory] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const { data: ctgs } = useCategoriesGet();
-  // useEffect(() => {
-  //   if (ctgs) setCategory(ctgs?.data[0]?.id);
-  //   else setCategory(1);
-  // }, [ctgs]);
 
   const {
     mutate: postTransaction,
@@ -36,8 +33,12 @@ const AddTransactionForm = () => {
     money: parseFloat(money),
     date: date,
     info: info,
-    transactionCategoryId: parseInt(category),
+    transactionCategoryId: category,
   };
+
+  useEffect(() => {
+    setCategory(ctgs?.data[0]?.ctgs[0]?.id);
+  }, [ctgs]);
 
   return (
     <div className={styles.container}>
@@ -69,9 +70,9 @@ const AddTransactionForm = () => {
         />
 
         {/* CATEGORIES */}
-        {/* {ctgs ? (
+        {ctgs ? (
           <select onChange={(e) => setCategory(e.target.value)}>
-            {ctgs?.data?.map((ctg) => {
+            {ctgs?.data?.ctgs?.map((ctg) => {
               return (
                 <option key={ctg.id} value={ctg.id}>
                   {ctg.name}
@@ -81,7 +82,7 @@ const AddTransactionForm = () => {
           </select>
         ) : (
           <div>loading...</div>
-        )} */}
+        )}
 
         {/* POST TRANSACTION */}
         <button
@@ -98,14 +99,11 @@ const AddTransactionForm = () => {
 
         {/* ERROR */}
         <div style={{ marginBottom: "1rem" }}>
-          {isError &&
-            error?.response?.data?.map((err, index) => {
-              return (
-                <div style={{ color: "red" }} key={index}>{`${
-                  err.instancePath
-                } : ${err.message ? err.message : ""}`}</div>
-              );
-            })}
+          {isError ? (
+            <div style={{ color: "red" }}>
+              {JSON?.stringify(error?.message)}
+            </div>
+          ) : null}
           {isSuccess && <div style={{ color: "green" }}>Success</div>}
         </div>
       </div>

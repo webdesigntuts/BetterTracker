@@ -29,10 +29,9 @@ model User {
 }
 
 model Wallet {
-  id           String        @id @default(cuid())
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId       String        @unique
-  transactions Transaction[]
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
 }
 
 model Transaction {
@@ -43,8 +42,6 @@ model Transaction {
   info                  String?
   category              TransactionCategory @relation(references: [id], fields: [transactionCategoryId])
   transactionCategoryId String
-  wallet                Wallet              @relation(fields: [walletId], references: [id])
-  walletId              String
   user                  User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId                String
 }

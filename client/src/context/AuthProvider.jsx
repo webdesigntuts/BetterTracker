@@ -11,22 +11,27 @@ const AuthContext = createContext({
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState();
-  const { data: user } = useUser();
+  const { data: user, isLoading: userLoading } = useUser();
   const value = { auth, setAuth };
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!auth) {
+    if (!auth && !userLoading) {
       if (location.pathname !== "/auth") {
+        console.log("nav to auth");
+        queryClient.removeQueries();
         navigate("/auth");
         return;
       }
-      queryClient.removeQueries();
       return;
     }
-    if (user?.data?.userId) setAuth(true);
-  }, [user, auth]);
+
+    if (user?.data?.userId) {
+      console.info("SET AUTH");
+      setAuth(true);
+    }
+  }, [user, auth, userLoading]);
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import Ax from "../utils/Axios";
 
 //AXIOS CALLS
@@ -10,6 +10,10 @@ const getCtgsSum = async () => {
   return await Ax.get("/categories/sum");
 };
 
+const postCtg = async (props) => {
+  return await Ax.post("/category", props);
+};
+
 //HOOKS
 const useCategoriesGet = () =>
   useQuery("Categories", getCtgs, {
@@ -19,4 +23,6 @@ const useCategoriesGet = () =>
 const useCategoriesSum = () =>
   useQuery("Categories_Sum", getCtgsSum, { staleTime: 30000 });
 
-export { useCategoriesGet, useCategoriesSum };
+const useCategoriesPost = () => useMutation("Categories_Post", postCtg);
+
+export { useCategoriesGet, useCategoriesSum, useCategoriesPost };

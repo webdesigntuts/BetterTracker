@@ -2,32 +2,34 @@ const { prisma } = require("../constats/config.js");
 const { DateTime } = require("luxon");
 
 const transaction_post = async (req, res) => {
-  if (req.session.userId) {
-    const date = new Date(req.body.date).toISOString();
-    const wallet = await prisma.wallet
-      .findUnique({
-        where: {
-          userId: req.session.userId,
-        },
-      })
-      .catch();
+  if (!req.session.userId) {
+    res.status(401).json({ message: "Please Login" });
+    return;
+  }
 
-    try {
-      await prisma.transaction.create({
-        data: {
-          title: req.body.title,
-          money: req.body.money,
-          date: date,
-          info: req.body.info,
-          transactionCategoryId: req.body.transactionCategoryId,
-          walletId: wallet.id,
-        },
-      });
-      res.status(200).send("success");
-    } catch {
-      res.status(400).send([{ instancePath: "Err", message: "Err" }]);
-    }
-  } else res.status(401).send("please login");
+  const { title, money, date, info, transactionCategoryId } = req.body;
+
+  if (!title || !money || !transactionCategoryId) {
+    res.status(400).json({ message: "Please fill all the fields" });
+    return;
+  }
+
+  try {
+    await prisma.transaction.create({
+      data: {
+        title: title,
+        money: money,
+        date: new Date(),
+        info: info,
+        transactionCategoryId: transactionCategoryId,
+        userId: req.session.userId,
+      },
+    });
+    res.status(200).send("success");
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({ message: "Something went wrong" });
+  }
 };
 
 const transactions_get = async (req, res) => {

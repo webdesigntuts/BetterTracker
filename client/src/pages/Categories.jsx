@@ -5,8 +5,9 @@ import MainContainer from "../components/Containers/MainContainer";
 
 import { DateTime } from "luxon";
 import { useState, useEffect } from "react";
-import { useCategoriesGet } from "../queries/category";
+import { useCategoriesGet, useCategoriesPost } from "../queries/category";
 import { useTransactionsGet } from "../queries/transaction";
+import { queryClient } from "../constants/config";
 
 const Categories = () => {
   //SEARCH FILTERS
@@ -21,11 +22,9 @@ const Categories = () => {
   const [sortingField, setSortingField] = useState("dateSort");
   const [order, setOrder] = useState("asc");
   const { data: ctgs, isFetched: isCtgsFetched } = useCategoriesGet();
+  const { mutate: postCategory, isLoading, isError } = useCategoriesPost();
   const [skip, setSkip] = useState(0);
-
-  useEffect(() => {
-    if (ctgs) setCategories(ctgs?.data[0]?.id);
-  }, [ctgs]);
+  const [ctgName, setCtgName] = useState("");
 
   const { data: FilteredTransactions, refetch: fetchTransactions } =
     useTransactionsGet({
@@ -98,14 +97,14 @@ const Categories = () => {
           <div className={styles.filterContainer}>
             <div className={styles.filter}>
               <label htmlFor='categories'>Categories :</label>
-              {isCtgsFetched && categories?.data?.length > 0 ? (
+              {ctgs?.data?.ctgs?.length > 0 ? (
                 <select
                   name='categories'
                   onChange={(e) => {
                     setCategories(e.target.value);
                   }}
                 >
-                  {ctgs?.data?.map((category, index) => {
+                  {ctgs?.data?.ctgs?.map((category, index) => {
                     return (
                       <option key={index} value={category.id}>
                         {category.name}
@@ -156,7 +155,6 @@ const Categories = () => {
             </div>
           </div>
         </div>
-
         {/* RESULTS */}
         <div className={styles.results}>
           <button className={styles.btn} onClick={() => fetchTransactions()}>
@@ -177,6 +175,36 @@ const Categories = () => {
                 );
               })}
           </div>
+        </div>
+
+        {/* CREATE A CATEGORY */}
+        <div className={styles.categoryContainer}>
+          <Title>Create A Category</Title>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type='text'
+              placeholder='Category Name...'
+              value={ctgName}
+              onChange={(e) => setCtgName(e.target.value)}
+            />
+            <button
+              onClick={() =>
+                postCategory(
+                  {
+                    name: ctgName,
+                  },
+                  {
+                    onSuccess: () => {
+                      setCtgName("");
+                      queryClient.invalidateQueries("Categories");
+                    },
+                  }
+                )
+              }
+            >
+              Create Category
+            </button>
+          </form>
         </div>
       </div>
     </MainContainer>
