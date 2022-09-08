@@ -1,9 +1,16 @@
 import styles from "../styles/TabComponent.module.scss";
 import { Link, Outlet } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const TabComponent = ({ Tabs, baseUrl }) => {
   const { pathname } = useLocation();
+  const nav = useNavigate();
+
+  useEffect(() => {
+    nav(`/${baseUrl}/${Tabs[0]?.link}`);
+  }, [Tabs]);
+
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
