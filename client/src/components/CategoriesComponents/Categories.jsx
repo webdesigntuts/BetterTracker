@@ -5,6 +5,7 @@ import { useTransactionsGet } from "../../queries/transaction";
 import TransactionCard from "../Cards/TransactionCard";
 import styles from "../../styles/CategoriesComponents/Categories.module.scss";
 import { DateTime } from "luxon";
+import { useEffect } from "react";
 
 const Categories = () => {
   //SEARCH FILTERS
@@ -153,19 +154,20 @@ const Categories = () => {
           Show Results
         </button>
         <div className={styles.inner}>
-          {FilteredTransactions &&
-            FilteredTransactions?.data?.map((transaction, index) => {
+          {FilteredTransactions?.data?.transactions?.map(
+            (transaction, index) => {
               return (
                 <TransactionCard
                   key={index}
-                  category={transaction.category.name}
-                  money={transaction.money}
-                  date={DateTime.fromISO(transaction.date).toISODate()}
-                  description={transaction.info}
-                  title={transaction.title}
+                  category={transaction?.category?.name}
+                  money={transaction?.money}
+                  date={DateTime.fromISO(transaction?.date).toISODate()}
+                  description={transaction?.info}
+                  title={transaction?.title}
                 />
               );
-            })}
+            }
+          )}
         </div>
       </div>
     </div>

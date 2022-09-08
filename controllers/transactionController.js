@@ -61,10 +61,10 @@ const transactions_get = async (req, res) => {
           transactionCategoryId: category,
         },
         skip: parseInt(skip),
-        take: parseInt(take),
+        take: parseInt(take) + 1,
         orderBy: {
-          date: dateSort != undefined ? dateSort : undefined,
-          money: priceSort != undefined ? priceSort : undefined,
+          date: dateSort ?? undefined,
+          money: priceSort ?? undefined,
         },
         select: {
           title: true,
@@ -80,7 +80,10 @@ const transactions_get = async (req, res) => {
         },
       });
 
-      res.json(transactions);
+      res.json({
+        transactions: transactions.slice(0, -1),
+        hasMore: transactions.length > take ? true : false,
+      });
     } catch (e) {
       console.log(e);
       res.status(500).json({ message: "Something went wrong" });
@@ -100,7 +103,6 @@ const transaction_delete = async (req, res) => {
         },
       });
     } catch (e) {
-      // console.log(e);
       res.status(500).json({ message: "Something went wrong" });
       return;
     }
