@@ -38,16 +38,15 @@ const Home = () => {
         <div className={styles.categories}>
           <Title>Categories Last 30 Days</Title>
           <div className={styles.content}>
-            {CategoriesSum?.data.length > 0 &&
-              CategoriesSum?.data?.map((category, index) => {
-                return (
-                  <CategoryCard
-                    key={index}
-                    category={category.transactionCategoryId}
-                    money={category._sum.money.toFixed(2)}
-                  />
-                );
-              })}
+            {CategoriesSum?.data?.transactions?.map((category, index) => {
+              return (
+                <CategoryCard
+                  key={index}
+                  category={category.transactionCategoryId}
+                  money={category._sum.money.toFixed(2)}
+                />
+              );
+            })}
           </div>
         </div>
 

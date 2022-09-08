@@ -72,9 +72,7 @@ const categories_transaction_sum = async (req, res) => {
           money: true,
         },
         where: {
-          wallet: {
-            userId: req.session.userId,
-          },
+          userId: req.session.userId,
           date: {
             gte: firstDate,
             lt: lastDate,
@@ -82,7 +80,8 @@ const categories_transaction_sum = async (req, res) => {
         },
       });
       res.status(200).json({ transactions });
-    } catch {
+    } catch (e) {
+      console.log(e);
       res.status(400).json({ message: "Something Went Wrong" });
     }
   }
