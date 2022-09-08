@@ -41,71 +41,67 @@ const TransactionDelete = () => {
   }, [ctgs]);
 
   return (
-    <div>
+    <div className={styles.inner}>
       <Title>Add a Transaction</Title>
-      <div className={styles.inner}>
-        <input
-          type='text'
-          placeholder='title'
-          onChange={(e) => setTitle(e.target.value)}
-          value={title}
-        />
-        <input
-          type='number'
-          placeholder='money'
-          onChange={(e) => setMoney(e.target.value)}
-          value={money}
-        />
-        <input
-          type='date'
-          placeholder='date'
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
-        />
-        <input
-          type='text'
-          placeholder='info'
-          onChange={(e) => setInfo(e.target.value)}
-          value={info}
-        />
+      <input
+        type='text'
+        placeholder='title'
+        onChange={(e) => setTitle(e.target.value)}
+        value={title}
+      />
+      <input
+        type='number'
+        placeholder='money'
+        onChange={(e) => setMoney(e.target.value)}
+        value={money}
+      />
+      <input
+        type='date'
+        placeholder='date'
+        onChange={(e) => setDate(e.target.value)}
+        value={date}
+      />
+      <input
+        type='text'
+        placeholder='info'
+        onChange={(e) => setInfo(e.target.value)}
+        value={info}
+      />
 
-        {/* CATEGORIES */}
-        {ctgs ? (
-          <select onChange={(e) => setCategory(e.target.value)}>
-            {ctgs?.data?.ctgs?.map((ctg) => {
-              return (
-                <option key={ctg.id} value={ctg.id}>
-                  {ctg.name}
-                </option>
-              );
-            })}
-          </select>
-        ) : (
-          <div>loading...</div>
-        )}
+      {/* CATEGORIES */}
+      {ctgs ? (
+        <select onChange={(e) => setCategory(e.target.value)}>
+          {ctgs?.data?.ctgs?.map((ctg) => {
+            return (
+              <option key={ctg.id} value={ctg.id}>
+                {ctg.name}
+              </option>
+            );
+          })}
+        </select>
+      ) : (
+        <div>loading...</div>
+      )}
 
-        {/* POST TRANSACTION */}
-        <button
-          onClick={() => {
-            postTransaction(body, {
-              onSuccess: async () => {
-                await queryClient.invalidateQueries("Categories_Sum");
-              },
-            });
-          }}
-        >
-          {isLoading ? "Loading..." : "Add Transaction"}
-        </button>
+      {/* POST TRANSACTION */}
+      <button
+        onClick={() => {
+          postTransaction(body, {
+            onSuccess: async () => {
+              await queryClient.invalidateQueries("Categories_Sum");
+            },
+          });
+        }}
+      >
+        {isLoading ? "Loading..." : "Add Transaction"}
+      </button>
 
-        {/* ERROR */}
-        <div style={{ marginBottom: "1rem" }}>
-          {isError ? (
-            <div style={{ color: "red" }}>
-              {JSON?.stringify(error?.message)}
-            </div>
-          ) : null}
-          {isSuccess && <div style={{ color: "green" }}>Success</div>}
-        </div>
+      {/* ERROR */}
+      <div style={{ marginBottom: "1rem" }}>
+        {isError ? (
+          <div style={{ color: "red" }}>{JSON?.stringify(error?.message)}</div>
+        ) : null}
+        {isSuccess && <div style={{ color: "green" }}>Success</div>}
       </div>
     </div>
   );

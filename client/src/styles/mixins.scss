@@ -40,11 +40,15 @@
     color: whitesmoke;
 }
 
-@mixin inputStyle {
+@mixin inputStyle($width: 100%) {
+    width: $width;
     max-width: 400px;
     font-size: 0.9rem;
     padding: 0.8rem 0.5rem;
     background: rgb(236, 236, 236);
+    @media screen and (max-width: 600px) {
+        max-width: unset;
+    }
 }
 
 @mixin selectStyle {

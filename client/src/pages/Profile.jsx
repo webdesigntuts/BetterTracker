@@ -32,39 +32,41 @@ const Profile = () => {
 
   return (
     <MainContainer>
-      <Title>Profile</Title>
-      <form action="submit" onSubmit={(e) => e.preventDefault()}>
-        <div className={styles.container}>
-          {/* FIRSTNAME */}
-          <div className={styles.firstName}>
-            <label htmlFor="firstName">FirstName :</label>
-            <input
-              type="text"
-              name="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
+      <div className={styles.container}>
+        <Title>Profile</Title>
+        <form action='submit' onSubmit={(e) => e.preventDefault()}>
+          <div className={styles.formInner}>
+            {/* FIRSTNAME */}
+            <div className={styles.firstName}>
+              <label htmlFor='firstName'>First Name :</label>
+              <input
+                type='text'
+                name='firstName'
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
+            </div>
+            {/* LASTNAME */}
+            <div className={styles.lastName}>
+              <label htmlFor='lastName'>Last Name : </label>
+              <input
+                type='text'
+                name='lastName'
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </div>
+            {/* BUTTON */}
+            <button onClick={() => UserUpdate(body)}>Update Info</button>
+            {userUpdated && (
+              <div style={{ marginTop: "1rem", color: "green" }}>Success</div>
+            )}
+            {userNotUpdated && (
+              <div style={{ marginTop: "1rem", color: "red" }}>Error</div>
+            )}
           </div>
-          {/* LASTNAME */}
-          <div className={styles.lastName}>
-            <label htmlFor="lastName">LastName : </label>
-            <input
-              type="text"
-              name="lastName"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-          {/* BUTTON */}
-          <button onClick={() => UserUpdate(body)}>Update Info</button>
-          {userUpdated && (
-            <div style={{ marginTop: "1rem", color: "green" }}>Success</div>
-          )}
-          {userNotUpdated && (
-            <div style={{ marginTop: "1rem", color: "red" }}>Error</div>
-          )}
-        </div>
-      </form>
+        </form>
+      </div>
     </MainContainer>
   );
 };
