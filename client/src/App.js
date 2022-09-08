@@ -1,5 +1,5 @@
 //GLOBAL STYLES
-import "./styles/App.scss";
+import styles from "./styles/App.module.scss";
 
 //REACT ROUTER
 import { Routes, Route } from "react-router-dom";
@@ -35,11 +35,11 @@ import { queryClient } from "./constants/config";
 
 function App() {
   return (
-    <div className='App'>
+    <div className={styles.App}>
       <QueryClientProvider client={queryClient}>
         <AuthGuard>
-          <PageContainer optionClass={"pageContainer"}>
-            <div className='mobileMenu'>
+          <PageContainer optionClass={styles.pageContainer}>
+            <div className={styles.mobileMenu}>
               <MobileNavbar />
             </div>
             <Routes>

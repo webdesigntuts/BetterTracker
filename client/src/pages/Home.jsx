@@ -1,10 +1,11 @@
 import MainContainer from "../components/Containers/MainContainer";
-import Searchbar from "../components/HomeComponents/Searchbar";
+
 import { Title } from "../components/Titles/Titles";
 import CategoryCard from "../components/Cards/CategoryCard";
 import TransactionCard from "../components/Cards/TransactionCard";
 import styles from "../styles/HomeComponents/Home.module.scss";
 import HomeProfile from "../components/HomeComponents/HomeProfile";
+import Searchbar from "../components/HomeComponents/Searchbar";
 
 import { DateTime } from "luxon";
 import { useTransactionsGet } from "../queries/transaction";
@@ -29,10 +30,7 @@ const Home = () => {
   return (
     <MainContainer optionClass={styles.container}>
       <div className={styles.main}>
-        {/* SEARCHBAR */}
-        <div className={styles.searchbar}>
-          <Searchbar />
-        </div>
+        <Searchbar />
 
         {/* CATEGORIES */}
         <div className={styles.categories}>

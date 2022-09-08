@@ -1,7 +1,6 @@
 import styles from "../../styles/HomeComponents/HomeProfile.module.scss";
 import { BsPerson, BsPencil, BsWallet2 } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
-
 import { Link } from "react-router-dom";
 
 //UTILS
