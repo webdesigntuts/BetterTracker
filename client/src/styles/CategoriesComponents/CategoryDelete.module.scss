@@ -1,0 +1,19 @@
+@use "../mixins.scss" as *;
+
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    select {
+        @include selectStyle;
+    }
+    button {
+        @include pinkButton(140px, 40px);
+    }
+}
