@@ -6,6 +6,7 @@ import TransactionCard from "../Cards/TransactionCard";
 import styles from "../../styles/CategoriesComponents/Categories.module.scss";
 import { DateTime } from "luxon";
 import { useEffect } from "react";
+import Spinner from "../Spinner";
 
 const Categories = () => {
   //SEARCH FILTERS
@@ -22,15 +23,18 @@ const Categories = () => {
   const { data: ctgs } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
   const [take, setTake] = useState(4);
-  const { data: FilteredTransactions, refetch: fetchTransactions } =
-    useTransactionsGet({
-      firstDate: timeSpan,
-      category: categories ? categories : undefined,
-      [sortingField]: order,
-      skip: skip,
-      take: take,
-      key: "CategoriesTrs",
-    });
+  const {
+    data: FilteredTransactions,
+    refetch: fetchTransactions,
+    isRefetching: FilteredTransactionsLoading,
+  } = useTransactionsGet({
+    firstDate: timeSpan,
+    category: categories ? categories : undefined,
+    [sortingField]: order,
+    skip: skip,
+    take: take,
+    key: "CategoriesTrs",
+  });
 
   useEffect(() => {
     fetchTransactions();
@@ -167,7 +171,7 @@ const Categories = () => {
             </button>
           )}
 
-          {skip !== 0 && (
+          {skip !== 0 && !FilteredTransactionsLoading && (
             <button
               className={styles.btn}
               onClick={() => {
@@ -178,7 +182,7 @@ const Categories = () => {
             </button>
           )}
 
-          {FilteredTransactions?.data?.hasMore && (
+          {FilteredTransactions?.data?.hasMore && !FilteredTransactionsLoading && (
             <button
               className={styles.btn}
               onClick={() => {
@@ -188,7 +192,7 @@ const Categories = () => {
               Next Page
             </button>
           )}
-          {skip - take >= 0 && (
+          {skip - take >= 0 && !FilteredTransactionsLoading && (
             <button
               className={styles.btn}
               onClick={() => {
@@ -201,19 +205,36 @@ const Categories = () => {
         </div>
 
         <div className={styles.inner}>
-          {FilteredTransactions?.data?.transactions?.map(
-            (transaction, index) => {
-              return (
-                <TransactionCard
-                  key={index}
-                  category={transaction?.category?.name}
-                  money={transaction?.money}
-                  date={DateTime.fromISO(transaction?.date).toISODate()}
-                  description={transaction?.info}
-                  title={transaction?.title}
-                />
-              );
-            }
+          {!FilteredTransactionsLoading &&
+            FilteredTransactions?.data?.transactions?.map(
+              (transaction, index) => {
+                return (
+                  <TransactionCard
+                    key={index}
+                    category={transaction?.category?.name}
+                    money={transaction?.money}
+                    date={DateTime.fromISO(transaction?.date).toISODate()}
+                    description={transaction?.info}
+                    title={transaction?.title}
+                  />
+                );
+              }
+            )}
+          {FilteredTransactions?.data?.transactions?.length === 0 && (
+            <div style={{ color: "red" }}>No Data</div>
+          )}
+
+          {FilteredTransactionsLoading && (
+            <div
+              style={{
+                marginTop: "2rem",
+                height: "450px",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <Spinner />
+            </div>
           )}
         </div>
       </div>
