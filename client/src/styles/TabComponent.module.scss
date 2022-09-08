@@ -7,28 +7,47 @@
 
     .tabs {
         display: flex;
+        @media screen and (max-width: 600px) {
+            flex-direction: column;
+        }
         a {
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--color-black);
             cursor: pointer;
-            width: 125px;
+            width: 140px;
             height: 50px;
             background: var(--color-red-300);
             border-right: 1px solid white;
-            transition: all 300ms ease-in-out;
+            transition: background-color 200ms ease-in-out;
+            transition: color 200ms ease-in-out;
+            @media screen and (max-width: 600px) {
+                border-right: none;
+                border-bottom: 1px solid white;
+            }
+
             &:hover {
                 background: hotpink;
                 color: whitesmoke;
             }
             &:first-child {
                 border-radius: 14px 0 0 14px;
+                @media screen and (max-width: 600px) {
+                    border-radius: 14px 14px 0 0;
+                }
             }
             &:last-child {
                 border-radius: 0 14px 14px 0;
-                border: none;
+                @media screen and (max-width: 600px) {
+                    border-radius: 0 0 14px 14px;
+                }
             }
+        }
+
+        .active {
+            background: hotpink;
+            color: whitesmoke;
         }
     }
 
