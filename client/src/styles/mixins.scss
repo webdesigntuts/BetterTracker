@@ -1,0 +1,32 @@
+@mixin pinkButton {
+}
+
+@mixin pinkLink($width: auto, $height: auto) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-black);
+    cursor: pointer;
+    width: $width;
+    height: $height;
+    background: var(--color-red-300);
+    transition: background-color 200ms ease-in-out;
+    transition: color 200ms ease-in-out;
+    &:hover {
+        background: hotpink;
+        color: whitesmoke;
+    }
+}
+
+@mixin pinkLinkActive {
+    transition: background-color 200ms ease-in-out;
+    transition: color 200ms ease-in-out;
+    background: hotpink;
+    color: whitesmoke;
+}
+
+@mixin inputStyle {
+}
+
+@mixin selectStyle {
+}

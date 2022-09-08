@@ -3,7 +3,6 @@
         display: inline-block;
         margin-right: 1.2rem;
         margin-bottom: 1.2rem;
-        //outline: 1px salmon solid;
         border: 1px solid var(--color-inactive);
         padding: 0.5rem;
         border-radius: 10px;
@@ -18,7 +17,6 @@
 
     select {
         display: inline-block;
-        //outline: 1px solid var(--color-red-300);
         font-size: 1rem;
         background: #ececec;
         color: black;
@@ -68,7 +66,6 @@
         background: rgb(236, 236, 236);
     }
     button {
-        align-self: flex-start;
         padding: 1rem;
         color: black;
         font-size: 1.1rem;

@@ -1,3 +1,4 @@
+@use "mixins.scss";
 .container {
     width: 100%;
     display: flex;
@@ -11,25 +12,11 @@
             flex-direction: column;
         }
         a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--color-black);
-            cursor: pointer;
-            width: 140px;
-            height: 50px;
-            background: var(--color-red-300);
-            border-right: 1px solid white;
-            transition: background-color 200ms ease-in-out;
-            transition: color 200ms ease-in-out;
+            @include mixins.pinkLink(140px, 40px);
+            border-left: 1px solid white;
             @media screen and (max-width: 600px) {
                 border-right: none;
                 border-bottom: 1px solid white;
-            }
-
-            &:hover {
-                background: hotpink;
-                color: whitesmoke;
             }
             &:first-child {
                 border-radius: 14px 0 0 14px;
@@ -46,10 +33,7 @@
         }
 
         .active {
-            transition: background-color 200ms ease-in-out;
-            transition: color 200ms ease-in-out;
-            background: hotpink;
-            color: whitesmoke;
+            @include mixins.pinkLinkActive;
         }
     }
 
