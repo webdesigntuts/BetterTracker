@@ -27,8 +27,13 @@ const categories_post = async (req, res) => {
       });
       res.status(201).json(ctgs);
     } catch (e) {
-      console.log(e);
-      res.status(400).json({ message: "Something Went Wrong" });
+      // console.log(e);
+      //if error is prisma unique constraint error
+      if (e.code === "P2002") {
+        res.status(400).json({ message: "Category Already Exists" });
+      } else {
+        res.status(400).json({ message: "Something Went Wrong" });
+      }
     }
   } else {
     res.status(401).send("Please Login");

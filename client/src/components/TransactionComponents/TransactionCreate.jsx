@@ -102,9 +102,7 @@ const TransactionDelete = () => {
       {/* ERROR */}
       <div style={{ marginBottom: "1rem" }}>
         {isError ? (
-          <div style={{ color: "red" }}>
-            {"Please Fill The Required Fields"}
-          </div>
+          <div style={{ color: "red" }}>{error?.response?.data?.message}</div>
         ) : null}
         {isSuccess && <div style={{ color: "green" }}>Success</div>}
       </div>

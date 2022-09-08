@@ -6,7 +6,12 @@ import { useCategoriesPost } from "../../queries/category";
 
 const CategoryCreate = () => {
   const [ctgName, setCtgName] = useState("");
-  const { mutate: postCategory } = useCategoriesPost({
+  const {
+    mutate: postCategory,
+    error,
+    isError,
+    isSuccess,
+  } = useCategoriesPost({
     onSuccess: () => {
       queryClient.invalidateQueries("Categories");
     },
@@ -40,6 +45,14 @@ const CategoryCreate = () => {
         >
           Create Category
         </button>
+        {isError && (
+          <p style={{ color: "red" }}>
+            {JSON.stringify(error?.response?.data?.message)}
+          </p>
+        )}
+        {isSuccess && (
+          <p style={{ color: "green" }}>Category created successfully</p>
+        )}
       </form>
     </div>
   );
