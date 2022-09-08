@@ -1,0 +1,15 @@
+@use "../mixins";
+.categoryContainer {
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    input {
+        @include mixins.inputStyle;
+    }
+    button {
+        @include mixins.pinkButton(140px, 40px);
+        align-self: center;
+    }
+}

@@ -41,6 +41,10 @@
 }
 
 @mixin inputStyle {
+    max-width: 400px;
+    font-size: 0.9rem;
+    padding: 0.8rem 0.5rem;
+    background: rgb(236, 236, 236);
 }
 
 @mixin selectStyle {
