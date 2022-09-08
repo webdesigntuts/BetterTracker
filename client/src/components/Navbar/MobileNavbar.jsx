@@ -110,7 +110,12 @@ const MobileNavbar = () => {
                   },
                 });
               }}
-              style={{ background: "transparent", cursor: "pointer" }}
+              style={{
+                background: "transparent",
+                cursor: "pointer",
+                color: "whitesmoke",
+                fontWeight: "500",
+              }}
             >
               <h3>Logout</h3>
             </button>
