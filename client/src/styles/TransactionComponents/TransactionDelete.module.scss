@@ -36,6 +36,9 @@
         margin-top: 1.2rem;
         display: flex;
         flex-wrap: wrap;
+        @media screen and (max-width: 500px) {
+            gap: 2rem;
+        }
         .container {
             @media screen and (max-width: 500px) {
                 width: 100%;
@@ -53,6 +56,13 @@
                     justify-content: space-between;
                     width: unset;
                 }
+
+                @media screen and (max-width: 420px) {
+                    flex-direction: column;
+                    margin: 0;
+                    gap: 0;
+                }
+
                 .iconContainer {
                     cursor: pointer;
                     padding: 0.5rem;
@@ -61,6 +71,11 @@
                     display: flex;
                     background: var(--color-red-100);
                     transition: all ease-in-out 300ms;
+                    @media screen and (max-width: 420px) {
+                        width: 100%;
+                        justify-content: center;
+                        border-radius: 0 0 14px 14px;
+                    }
                     &:hover {
                         background: whitesmoke;
                     }

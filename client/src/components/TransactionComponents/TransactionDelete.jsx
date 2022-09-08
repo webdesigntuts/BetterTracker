@@ -90,7 +90,7 @@ const DeleteTransactionForm = () => {
                   <TransactionCard
                     category={tr.category.name}
                     money={tr.money}
-                    description={`id : ${tr.id}title: ${tr.title} ${tr.info}`}
+                    //description={`id : ${tr.id}title: ${tr.title} ${tr.info}`}
                     date={DateTime.fromISO(tr.date).toISODate()}
                     title={tr.title}
                   />

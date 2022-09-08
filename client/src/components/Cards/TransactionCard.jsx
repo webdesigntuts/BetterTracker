@@ -103,7 +103,6 @@ const TransactionCard = ({ category, date, money, description, title }) => {
 TransactionCard.defaultProps = {
   category: "Products",
   date: "29 Feb 2020",
-  description: "Lorem Ipsum",
   money: "30.65",
 };
 
