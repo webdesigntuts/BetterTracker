@@ -13,6 +13,7 @@ import { AuthProvider } from "./context/AuthProvider";
 
 //PAGES
 import Auth from "./pages/Auth";
+import Register from "./pages/Register";
 import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
@@ -42,8 +43,10 @@ function App() {
               <MobileNavbar />
             </div>
             <Routes>
-              {/* AUTH PAGE */}
+              {/* LOGIN PAGE */}
               <Route path='/auth' element={<Auth />} />
+              {/* REGISTER PAGE */}
+              <Route path='/register' element={<Register />} />
               {/* PROTECTED ROUTES */}
               <Route element={<ProtectedRoutes />}>
                 {/* HOME */}

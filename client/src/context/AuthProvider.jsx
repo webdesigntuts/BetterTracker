@@ -23,7 +23,7 @@ const AuthProvider = ({ children }) => {
     }
 
     if (!auth && !userLoading) {
-      if (location.pathname !== "/auth") {
+      if (location.pathname !== "/auth" && location.pathname !== "/register") {
         console.log("nav to auth");
         queryClient.removeQueries();
         navigate("/auth");
