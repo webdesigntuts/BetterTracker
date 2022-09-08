@@ -1,4 +1,4 @@
-@use "../mixins";
+@use "../mixins" as *;
 .filters {
     display: flex;
     flex-wrap: wrap;
@@ -16,14 +16,14 @@
     }
 
     select {
-        @include mixins.selectStyle;
+        @include selectStyle;
         font-size: 0.9rem;
     }
 }
 
 .results {
     .btn {
-        @include mixins.pinkButton(140px, 40px);
+        @include pinkButton(140px, 40px);
         margin-top: 2rem;
         margin-bottom: 2rem;
     }

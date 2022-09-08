@@ -1,0 +1,15 @@
+@use "../mixins.scss" as *;
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    input,
+    select {
+        @include inputStyle;
+    }
+    button {
+        @include pinkButton(140px, 40px);
+        align-self: center;
+    }
+}

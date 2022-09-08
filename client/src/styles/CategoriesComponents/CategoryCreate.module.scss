@@ -1,4 +1,4 @@
-@use "../mixins";
+@use "../mixins" as *;
 .categoryContainer {
     form {
         display: flex;
@@ -6,10 +6,10 @@
         gap: 1.5rem;
     }
     input {
-        @include mixins.inputStyle;
+        @include inputStyle;
     }
     button {
-        @include mixins.pinkButton(140px, 40px);
+        @include pinkButton(140px, 40px);
         align-self: center;
     }
 }

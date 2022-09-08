@@ -2,8 +2,8 @@ import { Title } from "../Titles/Titles";
 import TransactionCard from "../Cards/TransactionCard";
 
 //STYLES
+import styles from "../../styles/TransactionComponents/TransactionDelete.module.scss";
 import { BsTrash } from "react-icons/bs";
-import styles from "../../styles/transactionComponents/DeleteTransactionForm.module.scss";
 
 //UTILS
 import { useState } from "react";

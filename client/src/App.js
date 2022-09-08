@@ -9,7 +9,7 @@ import PageContainer from "./components/Containers/PageContainer";
 import MobileNavbar from "./components/Navbar/MobileNavbar";
 import MainContainer from "./components/Containers/MainContainer";
 import PageLayout from "./components/PageLayout";
-import AuthGuard from "./context/AuthGuard";
+import AuthGuard from "./components/AuthGuard";
 
 //PAGES
 import Auth from "./pages/Auth";
@@ -19,8 +19,8 @@ import Settings from "./pages/Settings";
 import Profile from "./pages/Profile";
 import TransactionsRoot from "./pages/TransactionsRoot";
 //TRANSACTIONS SUBPAGES
-import AddTransactionForm from "./components/TransactionComponents/AddTransactionForm";
-import DeleteTransactionForm from "./components/TransactionComponents/DeleteTransactionForm";
+import TransactionCreate from "./components/TransactionComponents/TransactionCreate";
+import TransactionDelete from "./components/TransactionComponents/TransactionDelete";
 
 import CategoriesRoot from "./pages/CategoriesRoot";
 //CATEGORIES SUBPAGES
@@ -57,8 +57,8 @@ function App() {
                 <Route path='profile' element={<Profile />} />
                 {/* TRANSACTIONS */}
                 <Route path='transactions' element={<TransactionsRoot />}>
-                  <Route path='create' element={<AddTransactionForm />} />
-                  <Route path='delete' element={<DeleteTransactionForm />} />
+                  <Route path='create' element={<TransactionCreate />} />
+                  <Route path='delete' element={<TransactionDelete />} />
                 </Route>
                 {/* CATEGORIES */}
                 <Route path='categories' element={<CategoriesRoot />}>

@@ -1,5 +1,5 @@
 //STYLES
-import styles from "../../styles/transactionComponents/AddTransactionForm.module.scss";
+import styles from "../../styles/TransactionComponents/TransactionCreate.module.scss";
 //COMPONENTS
 import { Title } from "../Titles/Titles";
 
@@ -11,7 +11,7 @@ import { DateTime } from "luxon";
 import { queryClient } from "../../constants/config";
 import { useEffect } from "react";
 
-const AddTransactionForm = () => {
+const TransactionDelete = () => {
   const [title, setTitle] = useState("");
   const [money, setMoney] = useState("");
   const [date, setDate] = useState(DateTime.now().toISODate());
@@ -41,7 +41,7 @@ const AddTransactionForm = () => {
   }, [ctgs]);
 
   return (
-    <div className={styles.container}>
+    <div>
       <Title>Add a Transaction</Title>
       <div className={styles.inner}>
         <input
@@ -111,4 +111,4 @@ const AddTransactionForm = () => {
   );
 };
 
-export default AddTransactionForm;
+export default TransactionDelete;
