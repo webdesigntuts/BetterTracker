@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     gap: 1rem;
+    width: 100%;
 
     .dateSearchFilter {
         display: flex;
@@ -35,21 +36,22 @@
     .results {
         margin-top: 1.2rem;
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+        width: 100%;
+        max-width: 800px;
         @media screen and (max-width: 500px) {
             gap: 2rem;
         }
         .container {
-            @media screen and (max-width: 500px) {
-                width: 100%;
-                display: unset;
-            }
+            display: unset;
+
             .deleteContainer {
                 display: flex;
                 align-items: center;
                 gap: 2rem;
                 margin-right: 2rem;
                 margin-bottom: 2rem;
+                width: 100%;
 
                 @media screen and (max-width: 500px) {
                     margin-right: 0;
@@ -75,6 +77,7 @@
                         width: 100%;
                         justify-content: center;
                         border-radius: 0 0 14px 14px;
+                        transform: translateY(-0.8rem);
                     }
                     &:hover {
                         background: whitesmoke;

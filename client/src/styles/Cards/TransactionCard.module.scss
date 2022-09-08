@@ -17,15 +17,12 @@
     padding: 1.5rem;
     height: max-content;
     transition: height 200ms ease-in-out;
-    @media screen and (max-width: 420px) {
-        border-radius: 14px 14px 0 0;
-    }
 }
 
 .inner {
     display: flex;
     align-items: flex-start;
-    width: 300px;
+
     @media screen and (max-width: 480px) {
         width: 100%;
         flex-direction: column;
