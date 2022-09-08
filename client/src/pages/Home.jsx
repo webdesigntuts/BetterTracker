@@ -28,8 +28,8 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log(transactions);
-  }, [transactions]);
+    console.log(CategoriesSum?.data?.categoriesWithSum);
+  }, [CategoriesSum]);
 
   return (
     <MainContainer optionClass={styles.container}>
@@ -40,12 +40,16 @@ const Home = () => {
         <div className={styles.categories}>
           <Title>Categories Last 30 Days</Title>
           <div className={styles.content}>
-            {CategoriesSum?.data?.transactions?.map((category, index) => {
+            {CategoriesSum?.data?.categoriesWithSum?.map((category, index) => {
               return (
                 <CategoryCard
                   key={index}
-                  category={category.transactionCategoryId}
-                  money={category._sum.money.toFixed(2)}
+                  category={category.name}
+                  money={
+                    category.sum > 1000
+                      ? `${(category.sum / 1000).toFixed(1)}k`
+                      : category.sum
+                  }
                 />
               );
             })}

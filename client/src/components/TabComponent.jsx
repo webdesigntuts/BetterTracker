@@ -8,8 +8,9 @@ const TabComponent = ({ Tabs, baseUrl }) => {
   const nav = useNavigate();
 
   useEffect(() => {
-    nav(`/${baseUrl}/${Tabs[0]?.link}`);
-  }, [Tabs]);
+    console.log(`/${baseUrl}/${Tabs[0].link}`);
+    nav(`/${baseUrl}/${Tabs[0].link}`);
+  }, []);
 
   return (
     <div className={styles.container}>

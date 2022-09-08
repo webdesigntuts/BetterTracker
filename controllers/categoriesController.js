@@ -88,7 +88,26 @@ const categories_transaction_sum = async (req, res) => {
           },
         },
       });
-      res.status(200).json({ transactions });
+
+      const categories = await prisma.transactionCategory.findMany({
+        where: {
+          userId: req.session.userId,
+        },
+      });
+
+      const categoriesWithSum = categories.map((category) => {
+        const transaction = transactions.find(
+          (transaction) => transaction.transactionCategoryId === category.id
+        );
+        return {
+          ...category,
+          sum: transaction ? transaction._sum.money : 0,
+        };
+      });
+
+      console.log(categoriesWithSum);
+
+      res.status(200).json({ categoriesWithSum });
     } catch (e) {
       console.log(e);
       res.status(400).json({ message: "Something Went Wrong" });
