@@ -79,18 +79,14 @@ const Register = () => {
           {/* ADD ERROR */}
           {registerError && (
             <div style={{ color: "red", marginTop: "2rem" }}>
-              {registerErr.response.data.map((err, index) => {
-                return (
-                  <div
-                    key={index}
-                  >{`${err.instancePath} : ${err.message}`}</div>
-                );
-              })}
+              {JSON.stringify(registerErr?.response?.data?.message)}
             </div>
           )}
         </div>
+        <Link to='/auth' style={{ textAlign: "center" }}>
+          Already have and acc ?
+        </Link>
       </form>
-      <Link to='/auth'>Already have and acc ?</Link>
     </MainContainer>
   );
 };

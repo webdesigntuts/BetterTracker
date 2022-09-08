@@ -17,7 +17,12 @@ const Auth = () => {
     password: pw,
   };
 
-  const { mutate: loginHandler, isLoading: loggingIn } = useLoginUser();
+  const {
+    mutate: loginHandler,
+    isLoading: loggingIn,
+    isError,
+    error,
+  } = useLoginUser();
 
   return (
     <MainContainer>
@@ -51,8 +56,16 @@ const Auth = () => {
             Login Now
           </button>
         </div>
+        <Link style={{ textAlign: "center" }} to='/register'>
+          Don't have an acc ?
+        </Link>
+        {isError && (
+          <p style={{ color: "red", textAlign: "center" }}>
+            {error?.response?.data}
+          </p>
+        )}
       </form>
-      <Link to='/register'>Don't have an acc ? </Link>
+
       {loggingIn && <Spinner fullPage />}
     </MainContainer>
   );

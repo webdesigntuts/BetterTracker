@@ -98,9 +98,9 @@ const MobileNavbar = () => {
             </div>
 
             {/* AUTH MENU */}
-            <ListItemLink
+            <button
               url='logout'
-              clickHandler={() => {
+              onClick={() => {
                 logoutHandler(null, {
                   onSuccess: () => {
                     queryClient.removeQueries();
@@ -110,10 +110,10 @@ const MobileNavbar = () => {
                   },
                 });
               }}
-              optionClass={styles.linkColor}
+              style={{ background: "transparent", cursor: "pointer" }}
             >
               <h3>Logout</h3>
-            </ListItemLink>
+            </button>
           </ul>
         </nav>
       </div>

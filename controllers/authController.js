@@ -43,15 +43,10 @@ const auth_register = async (req, res) => {
       },
     });
   } catch {
-    res
-      .status(400)
-      .send([{ instancePath: "Email Availability", message: "Error" }]);
+    res.status(500).json({ message: "Something went wrong" });
   }
 
-  if (emailCheck)
-    res
-      .status(500)
-      .send([{ instancePath: "Email", message: "Email Is Already Taken" }]);
+  if (emailCheck) res.status(500).json({ message: "Email already exists" });
   else {
     const saltRounds = 10;
     let salted_password = await bcrypt.hash(password, saltRounds);
@@ -86,7 +81,7 @@ const auth_register = async (req, res) => {
 
       res.status(200).json({ userId: newUser.id });
     } catch {
-      res.status(500).send([{ instancePath: "Err", message: "Err" }]);
+      res.status(500).json({ message: "Something Went Wrong" });
       return;
     }
   }
