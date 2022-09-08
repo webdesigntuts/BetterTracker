@@ -33,17 +33,17 @@ const TabComponent = ({ Tabs, baseUrl }) => {
   );
 };
 
-TabComponent.defaultProps = {
-  Tabs: [
-    {
-      name: "All",
-      link: "results",
-    },
-    {
-      name: "Create",
-      link: "create",
-    },
-  ],
-};
+// TabComponent.defaultProps = {
+//   Tabs: [
+//     {
+//       name: "All",
+//       link: "results",
+//     },
+//     {
+//       name: "Create",
+//       link: "create",
+//     },
+//   ],
+// };
 
 export default TabComponent;
