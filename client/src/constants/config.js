@@ -13,6 +13,6 @@ const queryClient = new QueryClient({
 //CHAGE THIS TO YOUR OWN API
 const AXIOS_URL =
   process.env.NODE_ENV === "production"
-    ? process.env.AXIOS_BASE_URL
+    ? "https://bettertracker-production.up.railway.app/api/"
     : "http://localhost:5000/api/";
 export { AXIOS_URL, queryClient };
