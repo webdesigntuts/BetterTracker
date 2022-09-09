@@ -24,7 +24,7 @@ app.use(
     origin: [
       "http://localhost:3006",
       "https://localhost:5000",
-      "https://expensetracker20.herokuapp.com/",
+      "https://better-tracker-app.onrender.com/",
     ],
     methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD", "DELETE", "PATCH"],
     credentials: true,
@@ -56,7 +56,7 @@ app.use("/api", userRoutes);
 app.use("/api", transactionRoutes);
 app.use("/api", categoriesRoutes);
 app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "index.html"));
+  res.sendFile(path.join(__dirname, "clientBuild", "index.html"));
 });
 
 app.listen(port, () => {
