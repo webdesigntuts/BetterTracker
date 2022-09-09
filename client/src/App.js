@@ -54,11 +54,13 @@ function App() {
                 <Route path='profile' element={<Profile />} />
                 {/* TRANSACTIONS */}
                 <Route path='transactions' element={<TransactionsRoot />}>
+                  <Route index element={<TransactionCreate />} />
                   <Route path='create' element={<TransactionCreate />} />
                   <Route path='delete' element={<TransactionDelete />} />
                 </Route>
                 {/* CATEGORIES */}
                 <Route path='categories' element={<CategoriesRoot />}>
+                  <Route index element={<Categories />} />
                   <Route path='results' element={<Categories />} />
                   <Route path='create' element={<CategoryCreate />} />
                   <Route path='delete' element={<CategoryDelete />} />

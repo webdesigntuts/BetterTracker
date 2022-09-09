@@ -13,6 +13,7 @@ const TransactionsRoot = () => {
       link: "delete",
     },
   ];
+
   return (
     <MainContainer>
       <TabComponent Tabs={tabs} baseUrl='transactions' />

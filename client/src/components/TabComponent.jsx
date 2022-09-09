@@ -1,31 +1,26 @@
 import styles from "../styles/TabComponent.module.scss";
 import { Link, Outlet } from "react-router-dom";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const TabComponent = ({ Tabs, baseUrl }) => {
   const { pathname } = useLocation();
-  const nav = useNavigate();
-
-  useEffect(() => {
-    console.log(`/${baseUrl}/${Tabs[0].link}`);
-    nav(`/${baseUrl}/${Tabs[0].link}`);
-  }, []);
 
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
-        {Tabs?.map((tab, index) => (
-          <Link
-            key={index}
-            to={`/${baseUrl}/${tab?.link}`}
-            className={
-              `/${baseUrl}/${tab?.link}` === pathname ? styles.active : ""
-            }
-          >
-            {tab?.name}
-          </Link>
-        ))}
+        {Tabs?.map((tab, index) => {
+          return (
+            <Link
+              key={index}
+              to={`/${baseUrl}/${tab?.link}`}
+              className={
+                `/${baseUrl}/${tab?.link}` === pathname ? styles.active : ""
+              }
+            >
+              {tab?.name}
+            </Link>
+          );
+        })}
       </div>
       <div className={styles.children}>
         <Outlet />
