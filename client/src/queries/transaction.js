@@ -7,9 +7,7 @@ const deleteTr = async (params) => {
 };
 
 const getTrs = async (params) => {
-  return await Ax.get("transactions", { params: params }).catch((e) =>
-    console.log(e)
-  );
+  return await Ax.get("transactions", { params: params });
 };
 
 const postTr = async (params) => {

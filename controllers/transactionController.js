@@ -36,6 +36,8 @@ const transactions_get = async (req, res) => {
     let { firstDate, lastDate, category, dateSort, priceSort, take, skip } =
       req.query;
 
+    console.log(dateSort, priceSort);
+
     if (!Number(skip)) {
       skip = 0;
     }
@@ -61,10 +63,12 @@ const transactions_get = async (req, res) => {
         },
         skip: parseInt(skip),
         take: parseInt(take) + 1,
+
         orderBy: {
           date: dateSort ?? undefined,
           money: priceSort ?? undefined,
         },
+
         select: {
           title: true,
           money: true,

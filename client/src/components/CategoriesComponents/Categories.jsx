@@ -17,8 +17,9 @@ const Categories = () => {
       })
       .toISODate()
   );
+
   const [categories, setCategories] = useState("");
-  const [sortingField, setSortingField] = useState("dateSort");
+  const [sortingField, setSortingField] = useState("date");
   const [order, setOrder] = useState("asc");
   const { data: ctgs } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
@@ -29,12 +30,16 @@ const Categories = () => {
     isRefetching: FilteredTransactionsLoading,
   } = useTransactionsGet({
     firstDate: timeSpan,
-    category: categories ? categories : undefined,
+    category: categories || undefined,
     [sortingField]: order,
     skip: skip,
     take: take,
     key: "CategoriesTrs",
   });
+
+  useEffect(() => {
+    console.log(sortingField, order);
+  }, [order, sortingField]);
 
   useEffect(() => {
     fetchTransactions();
@@ -130,12 +135,13 @@ const Categories = () => {
             <label htmlFor='sortingField'>Sorting Field :</label>
             <select
               name='sortingField'
+              value={sortingField}
               onChange={(e) => {
                 setSortingField(e.target.value);
               }}
             >
-              <option value='date'>Date</option>
-              <option value='price'>Price</option>
+              <option value='dateSort'>Date</option>
+              <option value='priceSort'>Price</option>
             </select>
           </div>
         </div>
