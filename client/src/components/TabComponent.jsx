@@ -1,9 +1,14 @@
 import styles from "../styles/TabComponent.module.scss";
 import { Link, Outlet } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 const TabComponent = ({ Tabs, baseUrl }) => {
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    console.log(baseUrl, pathname);
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -14,7 +19,14 @@ const TabComponent = ({ Tabs, baseUrl }) => {
               key={index}
               to={`/${baseUrl}/${tab?.link}`}
               className={
-                `/${baseUrl}/${tab?.link}` === pathname ? styles.active : ""
+                index != 0
+                  ? pathname === `/${baseUrl}/${tab?.link}`
+                    ? styles.active
+                    : undefined
+                  : pathname === `/${baseUrl}` ||
+                    pathname === `/${baseUrl}/${tab?.link}`
+                  ? styles.active
+                  : undefined
               }
             >
               {tab?.name}
