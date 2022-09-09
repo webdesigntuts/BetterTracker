@@ -6,10 +6,6 @@ import { useEffect } from "react";
 const TabComponent = ({ Tabs, baseUrl }) => {
   const { pathname } = useLocation();
 
-  useEffect(() => {
-    console.log(baseUrl, pathname);
-  }, []);
-
   return (
     <div className={styles.container}>
       <div className={styles.tabs}>
