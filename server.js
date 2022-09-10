@@ -3,18 +3,22 @@ import expressSession from "express-session";
 import { PrismaSessionStore } from "@quixo3/prisma-session-store";
 import cors from "cors";
 import path from "path";
+import { fileURLToPath } from "url";
 
 //ROUTES
-import * as authRoutes from "./routes/authRoutes.js";
-import * as userRoutes from "./routes/userRoutes.js";
-import * as transactionRoutes from "./routes/transactionRoutes.js";
-import * as categoriesRoutes from "./routes/categoriesRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import transactionRoutes from "./routes/transactionRoutes.js";
+import categoriesRoutes from "./routes/categoriesRoutes.js";
 
 //Prisma Client
 import prisma from "./constats/config.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 //SERVER CLIENT FOLDER IE REACT BUILD
 app.use(express.static(path.join(__dirname, "clientBuild")));
