@@ -25,6 +25,10 @@ const userUpdatePassword = async (body) => {
   return await Ax.patch("me/pw", body);
 };
 
+const userDelete = async () => {
+  return await Ax.delete("me");
+};
+
 const useUser = () =>
   useQuery("user", fetchUser, {
     refetchOnWindowFocus: false,
@@ -37,6 +41,7 @@ const useRegisterUser = () => useMutation("registerUser", registerUser);
 const useUserUpdate = () => useMutation("updateUser", userUpdate);
 const useUserUpdatePassword = () =>
   useMutation("updateUserPassword", userUpdatePassword);
+const useUserDelete = () => useMutation("deleteUser", userDelete);
 
 export {
   useUser,
@@ -45,4 +50,5 @@ export {
   useLogoutUser,
   useUserUpdate,
   useUserUpdatePassword,
+  useUserDelete,
 };

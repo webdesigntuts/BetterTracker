@@ -1,8 +1,9 @@
 import MainContainer from "../components/Containers/MainContainer";
 import { Title } from "../components/Titles/Titles";
-import { useUser, useUserUpdate } from "../queries/user";
+import { useUser, useUserUpdate, useUserDelete } from "../queries/user";
 import styles from "../styles/profileComponents/Profile.module.scss";
 import { useState, useEffect } from "react";
+import { queryClient } from "../constants/config";
 
 const Profile = () => {
   const { data: user, isSuccess } = useUser();
@@ -12,6 +13,13 @@ const Profile = () => {
     isError: userNotUpdated,
     isLoading: userUpdating,
   } = useUserUpdate();
+
+  const {
+    mutate: UserDelete,
+    isSuccess: userDeleted,
+    isError: userNotDeleted,
+    isLoading: userDeleting,
+  } = useUserDelete();
 
   //state
   const [firstName, setFirstName] = useState("");
@@ -69,6 +77,17 @@ const Profile = () => {
             )}
           </div>
         </form>
+        <button
+          onClick={() =>
+            UserDelete(null, {
+              onSuccess: () => queryClient.invalidateQueries("user"),
+            })
+          }
+          disabled={userDeleting}
+          style={{ marginTop: "1rem" }}
+        >
+          {userDeleting ? "Deleting..." : "Delete Account"}
+        </button>
       </div>
     </MainContainer>
   );

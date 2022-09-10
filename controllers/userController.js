@@ -89,4 +89,21 @@ const user_update_password = async (req, res) => {
   }
 };
 
-module.exports = { user_update_meta, user_update_password };
+const user_delete = async (req, res) => {
+  if (req.session.userId) {
+    try {
+      await prisma.user.delete({
+        where: {
+          id: req.session.userId,
+        },
+      });
+      res.status(200).json({ message: "bye bye" });
+    } catch {
+      res.status(500).json({ message: "Error deleting user" });
+    }
+  } else {
+    res.status(401).send("Please Login");
+  }
+};
+
+module.exports = { user_update_meta, user_update_password, user_delete };
