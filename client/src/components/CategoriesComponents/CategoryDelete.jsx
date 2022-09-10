@@ -7,7 +7,12 @@ import Spinner from "../../components/Spinner";
 import { useEffect } from "react";
 
 const CategoryDelete = () => {
-  const { data: ctgs } = useCategoriesGet();
+  const {
+    data: ctgs,
+    isLoading: ctgsLoading,
+    isRefetching: ctgsRefetching,
+    isSuccess: ctgsSuccess,
+  } = useCategoriesGet();
   const [category, setCategory] = useState();
   const { mutate: deleteCategory, isLoading: deletingCategory } =
     useCategoryDelete();
@@ -19,7 +24,10 @@ const CategoryDelete = () => {
     <div className={styles.categoryContainer}>
       {/* DELETE CTG */}
       <Title>Delete Category</Title>
-      {ctgs?.data?.ctgs?.length > 0 ? (
+      {ctgs?.data?.ctgs?.length > 0 &&
+      ctgsSuccess &&
+      !ctgsLoading &&
+      !ctgsRefetching ? (
         <form onSubmit={(e) => e.preventDefault()}>
           <select
             value={category}
@@ -45,6 +53,8 @@ const CategoryDelete = () => {
             Delete Category
           </button>
         </form>
+      ) : ctgsLoading || ctgsRefetching ? (
+        <span>Loading Categories...</span>
       ) : (
         <span>No Categories To Delete</span>
       )}
