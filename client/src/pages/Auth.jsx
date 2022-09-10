@@ -27,22 +27,22 @@ const Auth = () => {
   return (
     <MainContainer>
       {/* LOGIN */}
-      <form action='submit' onSubmit={(e) => e.preventDefault()}>
+      <form action="submit" onSubmit={(e) => e.preventDefault()}>
         <div className={styles.container}>
           <Title>Login</Title>
           <span>Email :</span>
           <input
-            type='email'
-            autoComplete='username'
+            type="email"
+            autoComplete="username"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
           <span>Password :</span>
           <input
-            type='password'
+            type="password"
             onChange={(e) => setPw(e.target.value)}
             value={pw}
-            autoComplete='password'
+            autoComplete="password"
           />
 
           {/* LOGIN BTN */}
@@ -56,12 +56,12 @@ const Auth = () => {
             Login Now
           </button>
         </div>
-        <Link style={{ textAlign: "center" }} to='/register'>
+        <Link style={{ textAlign: "center" }} to="/register">
           Don't have an acc ?
         </Link>
         {isError && (
           <p style={{ color: "red", textAlign: "center" }}>
-            {error?.response?.data}
+            {JSON.stringify(error?.response?.data?.message)}
           </p>
         )}
       </form>

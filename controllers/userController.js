@@ -76,14 +76,14 @@ const user_delete = async (req, res) => {
   let userId;
   if (req.session.userId) {
     userId = req.session.userId;
+    req.session.destroy((err) => {
+      if (err) res.status(500).send("Cannot destroy session");
+      else res.status(200).send("Deleted");
+    });
     await prisma.user.delete({
       where: {
         id: userId,
       },
-    });
-    req.session.destroy((err) => {
-      if (err) res.status(500).send("Cannot destroy session");
-      else res.status(200).send("Deleted");
     });
   } else {
     res.status(401).json({ message: "Please Login" });

@@ -4,7 +4,10 @@ const bcrypt = require("bcrypt");
 const auth_login = async (req, res) => {
   let user;
   const { email, password } = req.body;
-  if (!email || !password) res.json({ message: "Fields Missing" });
+  if (!email || !password) {
+    res.status(400).json({ message: "Fields Missing" });
+    return;
+  }
 
   try {
     user = await prisma.user.findUnique({
@@ -20,15 +23,11 @@ const auth_login = async (req, res) => {
       req.session.userId = user.id;
       res.status(200).send("Authed");
     } else {
-      res.status(401).send("Wrong Creds");
+      res.status(400).json({ message: "Invalid Creditantials" });
     }
   } catch (e) {
-    if (!user) {
-      res.status(401).send("Wrong Creds");
-      return;
-    } else {
-      res.status(400).json({ message: "Something went Wrong" });
-    }
+    if (!user) res.status(400).json({ message: "Invalid Creditantials" });
+    else res.status(400).json({ message: "Something went Wrong" });
   }
 };
 
