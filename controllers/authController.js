@@ -1,5 +1,6 @@
 import prisma from "../constats/config.js";
 import bcrypt from "bcrypt";
+import { z } from "zod";
 
 const auth_login = async (req, res) => {
   let user;
@@ -33,6 +34,26 @@ const auth_login = async (req, res) => {
 
 const auth_register = async (req, res) => {
   const { email, password, firstName, lastName } = req.body;
+
+  const schema = z.object({
+    email: z.string().email({ message: "Invalid Email" }),
+    password: z
+      .string()
+      .min(3, { message: "Password must be at least 3 characters" }),
+    firstName: z
+      .string()
+      .min(2, { message: "First Name must be at least 2 characters" }),
+    lastName: z
+      .string()
+      .min(2, { message: "Last Name must be at least 2 characters" }),
+  });
+
+  const isValid = schema.safeParse(req.body);
+  if (isValid?.error) {
+    res.status(400).json({ errors: isValid?.error?.errors });
+    return;
+  }
+
   let emailCheck;
   try {
     emailCheck = await prisma.user.findUnique({
@@ -60,22 +81,22 @@ const auth_register = async (req, res) => {
         },
       });
 
-      // await prisma.transactionCategory.createMany({
-      //   data: [
-      //     {
-      //       name: "Products",
-      //       userId: newUser.id,
-      //     },
-      //     {
-      //       name: "Entertainment",
-      //       userId: newUser.id,
-      //     },
-      //     {
-      //       name: "Bills",
-      //       userId: newUser.id,
-      //     },
-      //   ],
-      // });
+      await prisma.transactionCategory.createMany({
+        data: [
+          {
+            name: "Products",
+            userId: newUser.id,
+          },
+          {
+            name: "Entertainment",
+            userId: newUser.id,
+          },
+          {
+            name: "Bills",
+            userId: newUser.id,
+          },
+        ],
+      });
 
       res.status(200).json({ userId: newUser.id });
     } catch (e) {
