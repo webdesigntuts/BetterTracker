@@ -78,11 +78,11 @@ const Profile = () => {
           </div>
         </form>
         <button
-          onClick={() =>
-            UserDelete(null, {
-              onSuccess: () => queryClient.invalidateQueries("user"),
-            })
-          }
+          // onClick={() =>
+          //   UserDelete(null, {
+          //     onSuccess: () => queryClient.removeQueries(),
+          //   })
+          // }
           disabled={userDeleting}
           style={{ marginTop: "1rem" }}
         >
