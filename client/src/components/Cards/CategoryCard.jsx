@@ -6,10 +6,8 @@ import { BsHouseDoor } from "react-icons/bs";
 import { HiOutlineFire } from "react-icons/hi";
 
 //UTILS
-import { useEffect, useState } from "react";
 
 const CategoryCard = ({ category, money }) => {
-  const [style, setStyle] = useState({});
   const categoryStyle = () => {
     switch (category) {
       default: {
@@ -47,16 +45,14 @@ const CategoryCard = ({ category, money }) => {
     }
   };
 
-  useEffect(() => {
-    setStyle(categoryStyle());
-  }, []);
+  const ctg = categoryStyle(category);
 
   return (
-    <div className={styles.container} style={{ background: style.background }}>
+    <div className={styles.container} style={{ background: ctg?.background }}>
       <div className={styles.inner}>
-        <div className={styles.iconContainer}>{style.icon}</div>
+        <div className={styles.iconContainer}>{ctg?.icon}</div>
         <div className={styles.info}>
-          <div className={styles.title}>{style.ctg}</div>
+          <div className={styles.title}>{ctg?.ctg}</div>
           <div className={styles.money}>{`${
             money > 0 ? `-${money}$` : "No Expenses"
           }`}</div>

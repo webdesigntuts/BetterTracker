@@ -6,11 +6,10 @@ import { BsHouseDoor } from "react-icons/bs";
 import { RiArrowDownSLine, RiArrowUpSLine } from "react-icons/ri";
 import { HiOutlineFire } from "react-icons/hi";
 
-//UTILS
-import { useEffect, useState } from "react";
+//HOOKS
+import { useState } from "react";
 
 const CategoryIcon = ({ category }) => {
-  const [style, setStyle] = useState({});
   const categoryStyle = () => {
     switch (category) {
       default: {
@@ -45,15 +44,14 @@ const CategoryIcon = ({ category }) => {
     }
   };
 
-  useEffect(() => {
-    setStyle(categoryStyle());
-  }, [category]);
+  const ctg = categoryStyle(category);
+
   return (
     <div
       className={styles.iconContainer}
-      style={{ background: style.background, color: style.color }}
+      style={{ background: ctg?.background, color: ctg?.color }}
     >
-      {style.icon}
+      {ctg?.icon}
     </div>
   );
 };
