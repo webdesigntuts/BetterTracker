@@ -2,12 +2,10 @@ const { prisma } = require("../constats/config");
 const bcrypt = require("bcrypt");
 
 const auth_login = async (req, res) => {
-  if (req.session.userId) {
-    res.status(500).send("You are logged in");
-    return;
-  }
   let user;
   const { email, password } = req.body;
+  if (!email || !password) res.json({ message: "Fields Missing" });
+
   try {
     user = await prisma.user.findUnique({
       where: {
@@ -24,10 +22,12 @@ const auth_login = async (req, res) => {
     } else {
       res.status(401).send("Wrong Creds");
     }
-  } catch {
+  } catch (e) {
     if (!user) {
       res.status(401).send("Wrong Creds");
       return;
+    } else {
+      res.status(400).json({ message: "Something went Wrong" });
     }
   }
 };
@@ -89,8 +89,10 @@ const auth_register = async (req, res) => {
 
 const auth_logout = async (req, res) => {
   if (req.session.userId) {
-    res.status(200).json({ message: "Logged Out" });
-    req.session.destroy();
+    req.session.destroy((err) => {
+      if (err) res.status(500).send("Cannot destroy session");
+      else res.status(200).send("Deleted");
+    });
   } else {
     res.status(401).send("Please Login");
   }

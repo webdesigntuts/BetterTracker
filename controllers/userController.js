@@ -3,9 +3,7 @@ const bcrypt = require("bcrypt");
 
 const user_update_meta = async (req, res) => {
   const { firstName, lastName } = req.body;
-  //IF USER IS LOGGED IN
   if (req.session.userId) {
-    console.log(req.session.userId);
     try {
       await prisma.user.update({
         where: {
@@ -22,8 +20,7 @@ const user_update_meta = async (req, res) => {
       res.status(500).send("Error {Update Meta}");
     }
   } else {
-    //IF NOT
-    res.status(401).send("Please Login");
+    res.status(401).json({ message: "Please Login" });
   }
 };
 
@@ -44,7 +41,7 @@ const user_update_password = async (req, res) => {
       return;
     }
   } else {
-    res.status(401).send("Please Login");
+    res.status(401).json({ message: "Please Login" });
   }
 
   //IF USER IS FOUND
@@ -63,20 +60,6 @@ const user_update_password = async (req, res) => {
             password: newPassword,
           },
         });
-        //DELETE ALL SESSIONS (LOGOUT EVERYONE)
-        try {
-          // req.session.destroy();
-          await prisma.session.deleteMany({
-            where: {
-              data: {
-                endsWith: `,"userId":${req.session.userId}}`,
-              },
-            },
-          });
-          res.clearCookie("sess").status(200).send("Updated");
-        } catch {
-          res.status(500).send("err deleting sessions");
-        }
       } catch {
         res.status(500).send("Cannot update pw");
       }
@@ -85,7 +68,7 @@ const user_update_password = async (req, res) => {
       res.status(403).send("wrong pw");
     }
   } else {
-    res.status(401).send("please log in");
+    res.status(401).json({ message: "Please Login" });
   }
 };
 
@@ -93,15 +76,17 @@ const user_delete = async (req, res) => {
   let userId;
   if (req.session.userId) {
     userId = req.session.userId;
-    res.status(200).json({ message: "Logged Out" });
-    req.session.destroy();
     await prisma.user.delete({
       where: {
         id: userId,
       },
     });
+    req.session.destroy((err) => {
+      if (err) res.status(500).send("Cannot destroy session");
+      else res.status(200).send("Deleted");
+    });
   } else {
-    res.status(401).jsoni({ message: "Please Login" });
+    res.status(401).json({ message: "Please Login" });
   }
 };
 

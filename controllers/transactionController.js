@@ -36,8 +36,6 @@ const transactions_get = async (req, res) => {
     let { firstDate, lastDate, category, dateSort, priceSort, take, skip } =
       req.query;
 
-    console.log(dateSort, priceSort);
-
     if (!Number(skip)) {
       skip = 0;
     }
