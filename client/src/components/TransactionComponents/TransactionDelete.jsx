@@ -97,7 +97,7 @@ const DeleteTransactionForm = () => {
                     date={DateTime.fromISO(tr.date).toISODate()}
                     title={tr.title}
                   />
-                  <div
+                  <button
                     className={styles.iconContainer}
                     style={
                       transactionsLoading
@@ -117,7 +117,7 @@ const DeleteTransactionForm = () => {
                     }}
                   >
                     <BsTrash />
-                  </div>
+                  </button>
                 </div>
               </div>
             );
