@@ -10,6 +10,7 @@ const Profile = () => {
     mutate: UserUpdate,
     isSuccess: userUpdated,
     isError: userNotUpdated,
+    isLoading: userUpdating,
   } = useUserUpdate();
 
   //state
@@ -34,30 +35,32 @@ const Profile = () => {
     <MainContainer>
       <div className={styles.container}>
         <Title>Profile</Title>
-        <form action='submit' onSubmit={(e) => e.preventDefault()}>
+        <form action="submit" onSubmit={(e) => e.preventDefault()}>
           <div className={styles.formInner}>
             {/* FIRSTNAME */}
             <div className={styles.firstName}>
-              <label htmlFor='firstName'>First Name :</label>
+              <label htmlFor="firstName">First Name :</label>
               <input
-                type='text'
-                name='firstName'
+                type="text"
+                name="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             {/* LASTNAME */}
             <div className={styles.lastName}>
-              <label htmlFor='lastName'>Last Name : </label>
+              <label htmlFor="lastName">Last Name : </label>
               <input
-                type='text'
-                name='lastName'
+                type="text"
+                name="lastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
               />
             </div>
             {/* BUTTON */}
-            <button onClick={() => UserUpdate(body)}>Update Info</button>
+            <button onClick={() => UserUpdate(body)} disabled={userUpdating}>
+              {userUpdating ? "Updating..." : "Update Info!"}
+            </button>
             {userUpdated && (
               <div style={{ marginTop: "1rem", color: "green" }}>Success</div>
             )}
