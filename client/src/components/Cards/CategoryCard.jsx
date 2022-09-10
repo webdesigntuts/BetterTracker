@@ -57,7 +57,9 @@ const CategoryCard = ({ category, money }) => {
         <div className={styles.iconContainer}>{style.icon}</div>
         <div className={styles.info}>
           <div className={styles.title}>{style.ctg}</div>
-          <div className={styles.money}>{`-$${money}`}</div>
+          <div className={styles.money}>{`${
+            money > 0 ? `-${money}$` : "No Expenses"
+          }`}</div>
         </div>
       </div>
     </div>

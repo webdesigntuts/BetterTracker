@@ -99,6 +99,7 @@ const categories_transaction_sum = async (req, res) => {
         const transaction = transactions.find(
           (transaction) => transaction.transactionCategoryId === category.id
         );
+
         return {
           ...category,
           sum: transaction ? transaction._sum.money : 0,

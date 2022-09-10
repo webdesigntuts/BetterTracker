@@ -54,8 +54,13 @@
           color: var(--color-active);
         }
         &:focus {
-          a {
+          span {
+            font-weight: 500;
+            color: black;
             text-decoration: underline;
+          }
+          svg {
+            color: black;
           }
         }
       }
