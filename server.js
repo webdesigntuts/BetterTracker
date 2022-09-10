@@ -43,7 +43,7 @@ app.use(
     cookie: {
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "lax" : "strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+      maxAge: 7 * 24 * 60 * 60 * 1000,
     },
     secret: "a santa at nasa",
     resave: true,
