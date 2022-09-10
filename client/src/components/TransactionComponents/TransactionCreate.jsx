@@ -30,6 +30,7 @@ const TransactionDelete = () => {
       .min(2, { message: "Title must be at least 2 characters" }),
     money: z
       .number()
+      .positive({ message: "Money must be a positive value" })
       .or(z.string().regex(/\d+/).transform(Number))
       .refine((n) => n > 0, {
         message: "Money must be a positive number",

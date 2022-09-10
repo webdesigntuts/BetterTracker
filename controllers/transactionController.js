@@ -1,5 +1,6 @@
 import prisma from "../constats/config.js";
 import { DateTime } from "luxon";
+import { z } from "zod";
 
 const transaction_post = async (req, res) => {
   if (!req.session.userId) {
@@ -9,8 +10,22 @@ const transaction_post = async (req, res) => {
 
   const { title, money, date, info, transactionCategoryId } = req.body;
 
-  if (!title || !money || !transactionCategoryId) {
-    res.status(400).json({ message: "Please fill all the fields" });
+  const schema = z.object({
+    title: z.string().min(2, { message: "Title must be a least two chars" }),
+    money: z.number().positive({ message: "Money must be a positive value" }),
+    date: z.string().optional(),
+    info: z.string().optional(),
+    transactionCategoryId: z
+      .string()
+      .min(1, "transactionCategoryId is required"),
+  });
+
+  const isValid = schema.safeParse(req.body);
+  if (isValid.error) {
+    res.status(400).json({
+      errors: isValid?.error?.errors,
+      message: "Please fill all the fields",
+    });
     return;
   }
 
