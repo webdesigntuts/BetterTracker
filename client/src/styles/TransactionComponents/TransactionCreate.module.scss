@@ -1,6 +1,7 @@
 @use "../mixins.scss" as *;
 
 .inner {
+  form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,10 +9,11 @@
     gap: 1rem;
     input,
     select {
-        @include inputStyle;
+      @include inputStyle;
     }
     button {
-        @include pinkButton(140px, 40px);
-        align-self: center;
+      @include pinkButton(140px, 40px);
+      align-self: center;
     }
+  }
 }

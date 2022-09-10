@@ -2,110 +2,121 @@
 import styles from "../../styles/TransactionComponents/TransactionCreate.module.scss";
 //COMPONENTS
 import { Title } from "../Titles/Titles";
+import Spinner from "../Spinner";
 
 //UTILS
-import { useState } from "react";
 import { useCategoriesGet } from "../../queries/category";
 import { useTransactionPost } from "../../queries/transaction";
-import { DateTime } from "luxon";
 import { queryClient } from "../../constants/config";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 import { useEffect } from "react";
 
+const Error = ({ error }) => {
+  return (
+    <>
+      {error && (
+        <span style={{ color: "red", marginBottom: "0.5rem" }}>{error}</span>
+      )}
+    </>
+  );
+};
+
 const TransactionDelete = () => {
-  const [title, setTitle] = useState("");
-  const [money, setMoney] = useState("");
-  const [date, setDate] = useState(DateTime.now().toISODate());
-  const [info, setInfo] = useState("");
-  const [category, setCategory] = useState("");
-  const { data: ctgs } = useCategoriesGet();
+  const schema = z.object({
+    title: z
+      .string()
+      .min(2, { message: "Title must be at least 2 characters" }),
+    money: z
+      .number()
+      .or(z.string().regex(/\d+/).transform(Number))
+      .refine((n) => n > 0, {
+        message: "Money must be a positive number",
+      }),
+    date: z.string().min(1, { message: "Date is required" }),
+    info: z.string().optional(),
+    transactionCategoryId: z.string({ message: "Invalid Category" }),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: formErrors, isValidating: formValidating },
+    reset: formReset,
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   const {
     mutate: postTransaction,
-    isLoading,
-    isError,
-    isSuccess,
-    error,
+    isLoading: postingTransaction,
+    isSuccess: postedTransaction,
+    isError: postingTransactionError,
+    error: postingTransactionErr,
   } = useTransactionPost();
 
-  let body = {
-    title: title,
-    money: parseFloat(money),
-    date: date,
-    info: info,
-    transactionCategoryId: category,
-  };
-
-  useEffect(() => {
-    setCategory(ctgs?.data?.ctgs[0]?.id);
-  }, [ctgs]);
+  const { data: ctgs, isFetched: ctgsFetched } = useCategoriesGet();
 
   return (
     <div className={styles.inner}>
-      <Title>Add a Transaction</Title>
-      <input
-        type='text'
-        placeholder='* Title '
-        onChange={(e) => setTitle(e.target.value)}
-        value={title}
-      />
-      <input
-        type='number'
-        placeholder='* Money'
-        onChange={(e) => setMoney(e.target.value)}
-        value={money}
-      />
-      <input
-        type='date'
-        placeholder='* Date'
-        onChange={(e) => setDate(e.target.value)}
-        value={date}
-      />
-      <input
-        type='text'
-        placeholder='Information'
-        onChange={(e) => setInfo(e.target.value)}
-        value={info}
-      />
-
-      {/* CATEGORIES */}
-      {ctgs ? (
-        <select onChange={(e) => setCategory(e.target.value)}>
-          {ctgs?.data?.ctgs?.map((ctg) => {
-            return (
-              <option key={ctg.id} value={ctg.id}>
-                {ctg.name}
-              </option>
-            );
-          })}
-        </select>
-      ) : (
-        <div>loading...</div>
-      )}
-
-      {/* POST TRANSACTION */}
-      <button
-        onClick={() => {
-          postTransaction(body, {
+      <form
+        onSubmit={handleSubmit((d) => {
+          postTransaction(d, {
             onSuccess: () => {
               queryClient.invalidateQueries("Categories_Sum");
-              setTitle("");
-              setMoney("");
-              setDate(DateTime.now().toISODate());
-              setInfo("");
+              formReset();
             },
           });
-        }}
+        })}
       >
-        {isLoading ? "Loading..." : "Add Transaction"}
-      </button>
+        <Title>Add a Transaction</Title>
+        <input type="text" placeholder="* Title " {...register("title")} />
+        <Error error={formErrors?.title?.message} />
+        <input
+          type="number"
+          step={0.01}
+          placeholder="* Money"
+          {...register("money")}
+        />
+        <Error error={formErrors?.money?.message} />
+        <input type="date" placeholder="* Date" {...register("date")} />
+        <Error error={formErrors?.date?.message} />
+        <input type="text" placeholder="Information" {...register("info")} />
+        <Error error={formErrors?.info?.message} />
 
-      {/* ERROR */}
-      <div style={{ marginBottom: "1rem" }}>
-        {isError ? (
-          <div style={{ color: "red" }}>{error?.response?.data?.message}</div>
-        ) : null}
-        {isSuccess && <div style={{ color: "green" }}>Success</div>}
-      </div>
+        {/* CATEGORIES */}
+        {ctgs && ctgsFetched ? (
+          <>
+            <select {...register("transactionCategoryId")}>
+              {ctgs?.data?.ctgs?.map((ctg) => {
+                return (
+                  <option key={ctg.id} value={ctg.id}>
+                    {ctg.name}
+                  </option>
+                );
+              })}
+            </select>
+            <Error error={formErrors?.transactionCategoryId?.message} />
+          </>
+        ) : (
+          <div>loading...</div>
+        )}
+
+        {/* POST TRANSACTION */}
+        <button type="submit">Add Transaction</button>
+
+        {/* ERROR */}
+        <div style={{ marginBottom: "1rem" }}>
+          {postingTransactionError ? (
+            <div style={{ color: "red" }}>
+              {postingTransactionErr?.response?.data?.message}
+            </div>
+          ) : null}
+          {postedTransaction && <div style={{ color: "green" }}>Success</div>}
+        </div>
+        {(postingTransaction || formValidating) && <Spinner fullPage />}
+      </form>
     </div>
   );
 };
