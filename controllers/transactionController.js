@@ -14,12 +14,14 @@ const transaction_post = async (req, res) => {
     return;
   }
 
+  console.log(date);
+
   try {
     await prisma.transaction.create({
       data: {
         title: title,
         money: money,
-        date: new Date(),
+        date: DateTime.fromISO(date).toJSDate(),
         info: info,
         transactionCategoryId: transactionCategoryId,
         userId: req.session.userId,

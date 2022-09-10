@@ -1,5 +1,6 @@
 import { Title } from "../Titles/Titles";
 import TransactionCard from "../Cards/TransactionCard";
+import Spinner from "../Spinner";
 
 //STYLES
 import styles from "../../styles/TransactionComponents/TransactionDelete.module.scss";
@@ -29,7 +30,8 @@ const DeleteTransactionForm = () => {
       })
       .toISODate()
   );
-  const { mutate: deleteTr } = useTrasactionDelete();
+  const { mutate: deleteTr, isLoading: transactionDeleting } =
+    useTrasactionDelete();
 
   const [enableTrs, setEnableTrs] = useState(false);
   //GET TRANSACTIONS
@@ -37,6 +39,7 @@ const DeleteTransactionForm = () => {
     data,
     refetch: fetchTransactions,
     isLoading: transactionsLoading,
+    isRefetching: transactionsRefetching,
   } = useTransactionsGet({
     firstDate: firstDate,
     lastDate: lastDate,
@@ -50,20 +53,20 @@ const DeleteTransactionForm = () => {
       <div className={styles.dateSearchFilter}>
         {/* FIRST DATE */}
         <div className={styles.date}>
-          <label htmlFor='firstDate'>From :</label>
+          <label htmlFor="firstDate">From :</label>
           <input
-            type='date'
-            name='firstDate'
+            type="date"
+            name="firstDate"
             value={firstDate}
             onChange={(e) => setFirstDate(e.target.value)}
           />
         </div>
         {/* LAST DATE */}
         <div className={styles.date}>
-          <label htmlFor='lastDate'>To :</label>
+          <label htmlFor="lastDate">To :</label>
           <input
-            type='date'
-            name='lastDate'
+            type="date"
+            name="lastDate"
             value={lastDate}
             onChange={(e) => setLastDate(e.target.value)}
           />
@@ -120,6 +123,9 @@ const DeleteTransactionForm = () => {
             );
           })}
       </div>
+      {(transactionsLoading ||
+        transactionDeleting ||
+        transactionsRefetching) && <Spinner fullPage />}
     </div>
   );
 };
