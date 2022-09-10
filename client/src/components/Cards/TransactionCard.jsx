@@ -85,13 +85,13 @@ const TransactionCard = ({ category, date, money, description, title }) => {
         {/* MONEY */}
         <div className={styles.moneyContainer}>
           <span>{`-$${money}`}</span>
-          <div
+          <button
             className={styles.iconContainer}
             onClick={() => setVisible(!visible)}
             style={description ? {} : { opacity: 0, pointerEvents: "none" }}
           >
             {visible ? <RiArrowUpSLine /> : <RiArrowDownSLine />}
-          </div>
+          </button>
         </div>
       </div>
     </div>
