@@ -1,7 +1,7 @@
-const express = require("express");
-const transactionController = require("../controllers/transactionController");
-
+import express from "express";
+import * as transactionController from "../controllers/transactionController.js";
 const router = express.Router();
+
 router.post("/transaction", transactionController.transaction_post);
 router.delete(
   "/transaction/delete/:transactionId",

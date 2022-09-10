@@ -1,5 +1,5 @@
-const express = require("express");
-const categoriesController = require("../controllers/categoriesController");
+import express from "express";
+import * as categoriesController from "../controllers/categoriesController.js";
 const router = express.Router();
 
 router.post("/category", categoriesController.categories_post);

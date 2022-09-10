@@ -1,5 +1,5 @@
-const { prisma } = require("../constats/config.js");
-const { DateTime } = require("luxon");
+import prisma from "../constats/config";
+import { DateTime } from "luxon";
 
 const categories_get = async (req, res) => {
   if (req.session.userId) {
@@ -114,7 +114,7 @@ const categories_transaction_sum = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   categories_get,
   categories_transaction_sum,
   categories_post,

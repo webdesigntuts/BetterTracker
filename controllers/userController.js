@@ -1,5 +1,5 @@
-const { prisma } = require("../constats/config.js");
-const bcrypt = require("bcrypt");
+import prisma from "../constats/config";
+import bcrypt from "bcrypt";
 
 const user_update_meta = async (req, res) => {
   const { firstName, lastName } = req.body;
@@ -90,4 +90,4 @@ const user_delete = async (req, res) => {
   }
 };
 
-module.exports = { user_update_meta, user_update_password, user_delete };
+export { user_update_meta, user_update_password, user_delete };

@@ -10,6 +10,7 @@
     "dev": "concurrently \"npm run server\" \"npm run frontend\"",
     "buildClient": "cd client && npm run build"
   },
+  "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {

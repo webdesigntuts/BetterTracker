@@ -1,8 +1,8 @@
-const express = require("express");
-const expressSession = require("express-session");
-const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
-const cors = require("cors");
-const path = require("path");
+import express from "express";
+import expressSession from "express-session";
+import { PrismaSessionStore } from "@quixo3/prisma-session-store";
+import cors from "cors";
+import path from "path";
 
 //ROUTES
 const authRoutes = require("./routes/authRoutes");

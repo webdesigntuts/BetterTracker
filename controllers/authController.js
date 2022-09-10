@@ -1,5 +1,5 @@
-const { prisma } = require("../constats/config");
-const bcrypt = require("bcrypt");
+import prisma from "../constats/config";
+import bcrypt from "bcrypt";
 
 const auth_login = async (req, res) => {
   let user;
@@ -121,9 +121,4 @@ const auth_user = async (req, res) => {
   }
 };
 
-module.exports = {
-  auth_register,
-  auth_login,
-  auth_logout,
-  auth_user,
-};
+export { auth_register, auth_login, auth_logout, auth_user };

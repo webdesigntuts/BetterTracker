@@ -1,6 +1,6 @@
-const express = require("express");
+import express from "express";
+import * as authController from "../controllers/authController.js";
 const router = express.Router();
-const authController = require("../controllers/authController");
 
 router.get("/whoami", authController.auth_user);
 router.post("/auth", authController.auth_login);
