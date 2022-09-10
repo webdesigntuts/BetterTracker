@@ -7,4 +7,4 @@ router.post("/auth", authController.auth_login);
 router.post("/logout", authController.auth_logout);
 router.post("/register", authController.auth_register);
 
-module.exports = router;
+export default router;

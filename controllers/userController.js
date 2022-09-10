@@ -1,4 +1,4 @@
-import prisma from "../constats/config";
+import prisma from "../constats/config.js";
 import bcrypt from "bcrypt";
 
 const user_update_meta = async (req, res) => {

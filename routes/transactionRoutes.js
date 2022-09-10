@@ -9,4 +9,4 @@ router.delete(
 );
 router.get("/transactions", transactionController.transactions_get);
 
-module.exports = router;
+export default router;

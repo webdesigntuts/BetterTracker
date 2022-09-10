@@ -5,14 +5,16 @@ import cors from "cors";
 import path from "path";
 
 //ROUTES
-const authRoutes = require("./routes/authRoutes");
-const userRoutes = require("./routes/userRoutes");
-const transactionRoutes = require("./routes/transactionRoutes");
-const categoriesRoutes = require("./routes/categoriesRoutes");
+import * as authRoutes from "./routes/authRoutes.js";
+import * as userRoutes from "./routes/userRoutes.js";
+import * as transactionRoutes from "./routes/transactionRoutes.js";
+import * as categoriesRoutes from "./routes/categoriesRoutes.js";
+
+//Prisma Client
+import prisma from "./constats/config.js";
 
 const app = express();
 const port = process.env.PORT || 5000;
-const { prisma } = require("./constats/config");
 
 //SERVER CLIENT FOLDER IE REACT BUILD
 app.use(express.static(path.join(__dirname, "clientBuild")));
