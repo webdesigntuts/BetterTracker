@@ -108,37 +108,29 @@ const auth_register = async (req, res) => {
 };
 
 const auth_logout = async (req, res) => {
-  if (req.session.userId) {
-    req.session.destroy((err) => {
-      if (err) res.status(500).send("Cannot destroy session");
-      else res.status(200).send("Deleted");
-    });
-  } else {
-    res.status(401).send("Please Login");
-  }
+  req.session.destroy((err) => {
+    if (err) res.status(500).send("Cannot destroy session");
+    else res.status(200).send("Deleted");
+  });
 };
 
 const auth_user = async (req, res) => {
-  if (req.session.userId) {
-    try {
-      const user = await prisma.user.findUnique({
-        where: {
-          id: req.session.userId,
-        },
-      });
-      if (!user) res.status(401).json("User Not Found");
-      const data = {
-        email: user.email,
-        userId: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-      };
-      res.status(200).json(data);
-    } catch {
-      res.status(500).json("Something Went Wrong {auth}");
-    }
-  } else {
-    res.status(401).send("Please Login");
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: req.session.userId,
+      },
+    });
+    if (!user) res.status(401).json("User Not Found");
+    const data = {
+      email: user.email,
+      userId: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
+    res.status(200).json(data);
+  } catch {
+    res.status(500).json("Something Went Wrong {auth}");
   }
 };
 

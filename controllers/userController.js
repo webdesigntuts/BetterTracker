@@ -3,23 +3,19 @@ import bcrypt from "bcrypt";
 
 const user_update_meta = async (req, res) => {
   const { firstName, lastName } = req.body;
-  if (req.session.userId) {
-    try {
-      await prisma.user.update({
-        where: {
-          id: req.session.userId,
-        },
-        data: {
-          firstName: firstName ?? undefined,
-          lastName: lastName ?? undefined,
-        },
-      });
-      res.status(200).send("Updated");
-    } catch (e) {
-      res.status(500).send("Error {Update Meta}");
-    }
-  } else {
-    res.status(401).json({ message: "Please Login" });
+  try {
+    await prisma.user.update({
+      where: {
+        id: req.session.userId,
+      },
+      data: {
+        firstName: firstName ?? undefined,
+        lastName: lastName ?? undefined,
+      },
+    });
+    res.status(200).send("Updated");
+  } catch (e) {
+    res.status(500).send("Error {Update Meta}");
   }
 };
 
@@ -27,20 +23,17 @@ const user_update_meta = async (req, res) => {
 const user_update_password = async (req, res) => {
   const { password, oldPassword } = req.body;
   let user;
-  if (req.session.userId) {
-    //FIND USER
-    try {
-      user = await prisma.user.findUnique({
-        where: {
-          id: req.session.userId,
-        },
-      });
-    } catch {
-      res.status(500).send("err");
-      return;
-    }
-  } else {
-    res.status(401).json({ message: "Please Login" });
+
+  //FIND USER
+  try {
+    user = await prisma.user.findUnique({
+      where: {
+        id: req.session.userId,
+      },
+    });
+  } catch {
+    res.status(500).json({ message: "Something went wrong" });
+    return;
   }
 
   //IF USER IS FOUND
@@ -66,27 +59,20 @@ const user_update_password = async (req, res) => {
       //IF PW IS NOT CORRECT
       res.status(403).send("wrong pw");
     }
-  } else {
-    res.status(401).json({ message: "Please Login" });
   }
 };
 
 const user_delete = async (req, res) => {
-  let userId;
-  if (req.session.userId) {
-    userId = req.session.userId;
-    req.session.destroy((err) => {
-      if (err) res.status(500).send("Cannot destroy session");
-      else res.status(200).send("Deleted");
-    });
-    await prisma.user.delete({
-      where: {
-        id: userId,
-      },
-    });
-  } else {
-    res.status(401).json({ message: "Please Login" });
-  }
+  const userId = req.session.userId;
+  req.session.destroy((err) => {
+    if (err) res.status(500).send("Cannot destroy session");
+    else res.status(200).send("Deleted");
+  });
+  await prisma.user.delete({
+    where: {
+      id: userId,
+    },
+  });
 };
 
 export { user_update_meta, user_update_password, user_delete };
