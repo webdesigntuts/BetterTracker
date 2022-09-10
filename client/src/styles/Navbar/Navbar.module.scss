@@ -30,3 +30,19 @@
     }
   }
 }
+
+.logout {
+  background: transparent;
+  border-radius: 6px;
+  text-align: start;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-inactive);
+  cursor: pointer;
+  &:focus {
+    outline: 2px solid black;
+  }
+  &:hover {
+    color: var(--color-active);
+  }
+}

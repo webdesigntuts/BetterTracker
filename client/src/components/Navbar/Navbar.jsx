@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <div className={styles.logo}>
-        <Link to='/'>
+        <Link to="/">
           <div>Tracker</div>
         </Link>
       </div>
@@ -30,17 +30,17 @@ const Navbar = () => {
       <nav>
         <ul>
           {/* HOME */}
-          <ListItemLink url=''>
+          <ListItemLink url="">
             <h3>Home</h3>
           </ListItemLink>
 
           {/* CATEGORIES */}
-          <ListItemLink url='categories'>
+          <ListItemLink url="categories">
             <h3>Categories</h3>
           </ListItemLink>
 
           {/* TRANSACTIONS */}
-          <ListItemLink url='transactions'>
+          <ListItemLink url="transactions">
             <h3>Transactions</h3>
           </ListItemLink>
 
@@ -51,18 +51,19 @@ const Navbar = () => {
 
           {/* Profile */}
           <div className={styles.mobileMenuLinks}>
-            <ListItemLink url='profile'>
+            <ListItemLink url="profile">
               <h3>Profile</h3>
             </ListItemLink>
           </div>
 
           {/* Settings */}
           <div className={styles.mobileMenuLinks}>
-            <ListItemLink url='settings'>
+            <ListItemLink url="settings">
               <h3>Settings</h3>
             </ListItemLink>
           </div>
           <button
+            className={styles.logout}
             onClick={() => {
               logoutHandler(null, {
                 onSuccess: () => {
@@ -73,7 +74,7 @@ const Navbar = () => {
               });
             }}
           >
-            <h3>Logout</h3>
+            <span>Logout</span>
           </button>
         </ul>
       </nav>

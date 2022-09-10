@@ -21,9 +21,13 @@ const Categories = () => {
   const [categories, setCategories] = useState("");
   const [sortingField, setSortingField] = useState("date");
   const [order, setOrder] = useState("asc");
-  const { data: ctgs } = useCategoriesGet();
+  const {
+    data: ctgs,
+    isLoading: ctgsLoading,
+    isSuccess: ctgsSuccess,
+  } = useCategoriesGet();
   const [skip, setSkip] = useState(0);
-  const [take, setTake] = useState(4);
+  const [take] = useState(4);
   const {
     data: FilteredTransactions,
     refetch: fetchTransactions,
@@ -54,9 +58,9 @@ const Categories = () => {
         <div className={styles.filterContainer}>
           {/* TIME SPAN */}
           <div className={styles.filter}>
-            <label htmlFor='timeSpan'>Time Span :</label>
+            <label htmlFor="timeSpan">Time Span :</label>
             <select
-              name='timeSpan'
+              name="timeSpan"
               onChange={(e) => {
                 setTimeSpan(e.target.value);
               }}
@@ -104,10 +108,10 @@ const Categories = () => {
         {/* CATEGORIES */}
         <div className={styles.filterContainer}>
           <div className={styles.filter}>
-            <label htmlFor='categories'>Categories :</label>
-            {ctgs?.data?.ctgs?.length > 0 ? (
+            <label htmlFor="categories">Categories :</label>
+            {ctgs?.data?.ctgs?.length > 0 && ctgsSuccess ? (
               <select
-                name='categories'
+                name="categories"
                 onChange={(e) => {
                   setCategories(e.target.value);
                 }}
@@ -119,10 +123,26 @@ const Categories = () => {
                     </option>
                   );
                 })}
-                <option value=''>All</option>
+                <option value="">All</option>
               </select>
+            ) : ctgsLoading ? (
+              <div
+                style={{
+                  padding: "0.61rem 1.5rem",
+                  background: "#ececec",
+                  fontSize: "0.9rem",
+                }}
+              >
+                Loading...
+              </div>
             ) : (
-              <div style={{ padding: "0.61rem 1.5rem", background: "#ececec" }}>
+              <div
+                style={{
+                  padding: "0.61rem 1.5rem",
+                  background: "#ececec",
+                  fontSize: "0.9rem",
+                }}
+              >
                 No Categories
               </div>
             )}
@@ -132,16 +152,16 @@ const Categories = () => {
         {/* SORTING FIELD */}
         <div className={styles.filterContainer}>
           <div className={styles.filter}>
-            <label htmlFor='sortingField'>Sorting Field :</label>
+            <label htmlFor="sortingField">Sorting Field :</label>
             <select
-              name='sortingField'
+              name="sortingField"
               value={sortingField}
               onChange={(e) => {
                 setSortingField(e.target.value);
               }}
             >
-              <option value='dateSort'>Date</option>
-              <option value='priceSort'>Price</option>
+              <option value="dateSort">Date</option>
+              <option value="priceSort">Price</option>
             </select>
           </div>
         </div>
@@ -149,15 +169,15 @@ const Categories = () => {
         {/* ASC OR DESC */}
         <div className={styles.filterContainer}>
           <div className={styles.filter}>
-            <label htmlFor='order'>Order :</label>
+            <label htmlFor="order">Order :</label>
             <select
-              name='order'
+              name="order"
               onChange={(e) => {
                 setOrder(e.target.value);
               }}
             >
-              <option value='asc'>Ascending</option>
-              <option value='desc'>Descending</option>
+              <option value="asc">Ascending</option>
+              <option value="desc">Descending</option>
             </select>
           </div>
         </div>
