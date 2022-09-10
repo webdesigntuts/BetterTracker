@@ -1,89 +1,91 @@
 import styles from "../styles/Auth.module.scss";
 import MainContainer from "../components/Containers/MainContainer";
 import { Title } from "../components/Titles/Titles";
-import { useState } from "react";
 import { useLoginUser } from "../queries/user";
 import { useRegisterUser } from "../queries/user";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { queryClient } from "../constants/config";
 import Spinner from "../components/Spinner";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
+const Error = ({ error }) => {
+  return (
+    <span style={{ color: "red", marginBottom: "1rem" }}>{error && error}</span>
+  );
+};
 
 const Register = () => {
-  //REGISTER
-  const [regEmail, setRegEmail] = useState("");
-  const [regPw, setRegPw] = useState("");
-
-  let regBody = {
-    email: regEmail,
-    password: regPw,
-  };
-
-  const {
-    mutateAsync: registerHandler,
-    isSuccess: registerSucc,
-    isError: registerError,
-    error: registerErr,
-    isLoading: registering,
-  } = useRegisterUser();
-
   const {
     mutate: loginHandler,
     isError: loginError,
     error: loginErr,
   } = useLoginUser();
 
-  const navigate = useNavigate();
+  const { mutate: registerUser } = useRegisterUser();
+
+  const schema = z.object({
+    firstName: z
+      .string()
+      .min(2, { message: "First name must be at lest 2 characters" })
+      .max(20, { message: "First name must be at most 20 characters" }),
+    lastName: z
+      .string()
+      .min(2, { message: "Last name must be at least 2 characters" })
+      .max(20, { message: "Last name must be at most 20 characters" }),
+    email: z.string().email({ message: "Invalid Email" }),
+    password: z
+      .string()
+      .min(3, { message: "Password must be at least 3 characters" }),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: {
+      errors,
+      isSubmitting: registering,
+      isSubmitSuccessful: registered,
+    },
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
 
   return (
     <MainContainer>
       {/* REGISTER FORM */}
       <form
         action="submit"
-        onSubmit={(e) => e.preventDefault()}
+        onSubmit={handleSubmit((d) =>
+          registerUser(d, {
+            onSuccess: () => {
+              loginHandler({
+                email: d.email,
+                password: d.password,
+              });
+            },
+          })
+        )}
         className={styles.registerForm}
       >
         <div className={styles.container}>
           <Title>Register</Title>
+          <span>First Name :</span>
+          <input type="fname" {...register("firstName")} />
+          <Error error={errors?.firstName?.message} />
+          <span>Last Name :</span>
+          <input type="lname" {...register("lastName")} />
+          <Error error={errors?.lastName?.message} />
           <span>Email :</span>
-          <input
-            type="email"
-            onChange={(e) => setRegEmail(e.target.value)}
-            value={regEmail}
-            autoComplete="email"
-          />
+          <input type="email" autoComplete="email" {...register("email")} />
+          <Error error={errors?.email?.message} />
           <span>Password :</span>
-          <input
-            type="password"
-            onChange={(e) => setRegPw(e.target.value)}
-            value={regPw}
-            autoComplete="new-password"
-          />
+          <input type="password" {...register("password")} />
+          <Error error={errors?.password?.message} />
 
           {/* REGISTER BTN */}
-          <button
-            onClick={() =>
-              registerHandler(regBody, {
-                //ONSUCCESS USE LOGINHANDLER
-                onSuccess: () => {
-                  loginHandler(regBody, {
-                    onSuccess: () => queryClient.invalidateQueries("user"),
-                    onError: () => {
-                      console.log(loginErr);
-                    },
-                  });
-                },
-              })
-            }
-          >
-            Register Now
-          </button>
-          {/* ADD ERROR */}
-          {registerError && (
-            <div style={{ color: "red", marginTop: "2rem" }}>
-              {JSON.stringify(registerErr?.response?.data?.message)}
-            </div>
-          )}
+          <button type="submit">Register Now</button>
         </div>
         <Link to="/auth" style={{ textAlign: "center" }}>
           Already have and acc ?

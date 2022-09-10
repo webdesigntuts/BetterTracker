@@ -33,8 +33,7 @@ const auth_login = async (req, res) => {
 };
 
 const auth_register = async (req, res) => {
-  const { email, password } = req.body;
-
+  const { email, password, firstName, lastName } = req.body;
   let emailCheck;
   try {
     emailCheck = await prisma.user.findUnique({
@@ -57,30 +56,31 @@ const auth_register = async (req, res) => {
         data: {
           email: email,
           password: salted_password,
-          firstName: "",
-          lastName: "",
+          firstName: firstName,
+          lastName: lastName,
         },
       });
 
-      await prisma.transactionCategory.createMany({
-        data: [
-          {
-            name: "Products",
-            userId: newUser.id,
-          },
-          {
-            name: "Entertainment",
-            userId: newUser.id,
-          },
-          {
-            name: "Bills",
-            userId: newUser.id,
-          },
-        ],
-      });
+      // await prisma.transactionCategory.createMany({
+      //   data: [
+      //     {
+      //       name: "Products",
+      //       userId: newUser.id,
+      //     },
+      //     {
+      //       name: "Entertainment",
+      //       userId: newUser.id,
+      //     },
+      //     {
+      //       name: "Bills",
+      //       userId: newUser.id,
+      //     },
+      //   ],
+      // });
 
       res.status(200).json({ userId: newUser.id });
-    } catch {
+    } catch (e) {
+      console.log(e);
       res.status(500).json({ message: "Something Went Wrong" });
       return;
     }
