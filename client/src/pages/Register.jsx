@@ -7,6 +7,7 @@ import { useRegisterUser } from "../queries/user";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { queryClient } from "../constants/config";
+import Spinner from "../components/Spinner";
 
 const Register = () => {
   //REGISTER
@@ -23,6 +24,7 @@ const Register = () => {
     isSuccess: registerSucc,
     isError: registerError,
     error: registerErr,
+    isLoading: registering,
   } = useRegisterUser();
 
   const {
@@ -37,7 +39,7 @@ const Register = () => {
     <MainContainer>
       {/* REGISTER FORM */}
       <form
-        action='submit'
+        action="submit"
         onSubmit={(e) => e.preventDefault()}
         className={styles.registerForm}
       >
@@ -45,17 +47,17 @@ const Register = () => {
           <Title>Register</Title>
           <span>Email :</span>
           <input
-            type='email'
+            type="email"
             onChange={(e) => setRegEmail(e.target.value)}
             value={regEmail}
-            autoComplete='email'
+            autoComplete="email"
           />
           <span>Password :</span>
           <input
-            type='password'
+            type="password"
             onChange={(e) => setRegPw(e.target.value)}
             value={regPw}
-            autoComplete='new-password'
+            autoComplete="new-password"
           />
 
           {/* REGISTER BTN */}
@@ -83,10 +85,11 @@ const Register = () => {
             </div>
           )}
         </div>
-        <Link to='/auth' style={{ textAlign: "center" }}>
+        <Link to="/auth" style={{ textAlign: "center" }}>
           Already have and acc ?
         </Link>
       </form>
+      {registering && <Spinner fullPage />}
     </MainContainer>
   );
 };

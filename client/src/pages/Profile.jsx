@@ -4,8 +4,10 @@ import { useUser, useUserUpdate, useUserDelete } from "../queries/user";
 import styles from "../styles/profileComponents/Profile.module.scss";
 import { useState, useEffect } from "react";
 import { queryClient } from "../constants/config";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const nav = useNavigate();
   const { data: user, isSuccess } = useUser();
   const {
     mutate: UserUpdate,
@@ -78,11 +80,16 @@ const Profile = () => {
           </div>
         </form>
         <button
-          // onClick={() =>
-          //   UserDelete(null, {
-          //     onSuccess: () => queryClient.removeQueries(),
-          //   })
-          // }
+          onClick={() =>
+            UserDelete(null, {
+              onSuccess: () => {
+                queryClient.removeQueries();
+                queryClient.cancelQueries();
+                queryClient.cancelMutations();
+                nav("/auth");
+              },
+            })
+          }
           disabled={userDeleting}
           style={{ marginTop: "1rem" }}
         >
