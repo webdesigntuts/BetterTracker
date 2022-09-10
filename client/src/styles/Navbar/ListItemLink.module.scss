@@ -5,7 +5,7 @@ li {
     text-decoration: none;
     color: #333;
     transition: color 200ms ease;
-    &:focus {
+    &:focus-visible {
       h2,
       h3,
       span {

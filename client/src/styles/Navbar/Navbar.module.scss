@@ -12,7 +12,7 @@
     margin-bottom: 2rem;
     a {
       color: var(--color-active);
-      &:focus {
+      &:focus-visible {
         text-decoration: underline;
       }
     }
@@ -39,7 +39,7 @@
   font-weight: 600;
   color: var(--color-inactive);
   cursor: pointer;
-  &:focus {
+  &:focus-visible {
     outline: 2px solid black;
   }
   &:hover {

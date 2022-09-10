@@ -11,6 +11,7 @@ const CategoryCreate = () => {
     error,
     isError,
     isSuccess,
+    isLoading,
   } = useCategoriesPost({
     onSuccess: () => {
       queryClient.invalidateQueries("Categories");
@@ -23,8 +24,8 @@ const CategoryCreate = () => {
       <Title>Create Category</Title>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
-          type='text'
-          placeholder='Category Name...'
+          type="text"
+          placeholder="Category Name..."
           value={ctgName}
           onChange={(e) => setCtgName(e.target.value)}
         />
@@ -42,8 +43,9 @@ const CategoryCreate = () => {
               }
             )
           }
+          disabled={isLoading}
         >
-          Create Category
+          {isLoading ? "Loading..." : "Create Category'"}
         </button>
         {isError && (
           <p style={{ color: "red" }}>
