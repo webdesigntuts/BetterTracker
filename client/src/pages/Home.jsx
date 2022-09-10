@@ -40,9 +40,9 @@ const Home = () => {
               return (
                 <CategoryCard
                   key={index}
-                  category={category.name}
+                  category={category?.name}
                   money={
-                    category.sum > 1000
+                    category?.sum > 1000
                       ? `${(category.sum / 1000).toFixed(1)}k`
                       : category.sum
                   }
