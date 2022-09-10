@@ -6,10 +6,10 @@ import { Routes, Route } from "react-router-dom";
 
 //COMPONENTS
 import PageContainer from "./components/Containers/PageContainer";
-import MobileNavbar from "./components/Navbar/MobileNavbar";
 import MainContainer from "./components/Containers/MainContainer";
 import PageLayout from "./components/PageLayout";
 import AuthGuard from "./components/AuthGuard";
+import Interceptor from "./components/Interceptor";
 
 //PAGES
 import Auth from "./pages/Auth";
@@ -37,38 +37,39 @@ function App() {
   return (
     <div className={styles.App}>
       <QueryClientProvider client={queryClient}>
+        <Interceptor />
         <AuthGuard>
           <PageContainer optionClass={styles.pageContainer}>
             <Routes>
               {/* LOGIN PAGE */}
-              <Route path='/auth' element={<Auth />} />
+              <Route path="/auth" element={<Auth />} />
               {/* REGISTER PAGE */}
-              <Route path='/register' element={<Register />} />
+              <Route path="/register" element={<Register />} />
               {/* PAGE LAYOUT */}
               <Route element={<PageLayout />}>
                 {/* HOME */}
-                <Route path='/' element={<Home />} />
+                <Route path="/" element={<Home />} />
                 {/* SETTINGS */}
-                <Route path='settings' element={<Settings />} />
+                <Route path="settings" element={<Settings />} />
                 {/* PROFILE */}
-                <Route path='profile' element={<Profile />} />
+                <Route path="profile" element={<Profile />} />
                 {/* TRANSACTIONS */}
-                <Route path='transactions' element={<TransactionsRoot />}>
+                <Route path="transactions" element={<TransactionsRoot />}>
                   <Route index element={<TransactionCreate />} />
-                  <Route path='create' element={<TransactionCreate />} />
-                  <Route path='delete' element={<TransactionDelete />} />
+                  <Route path="create" element={<TransactionCreate />} />
+                  <Route path="delete" element={<TransactionDelete />} />
                 </Route>
                 {/* CATEGORIES */}
-                <Route path='categories' element={<CategoriesRoot />}>
+                <Route path="categories" element={<CategoriesRoot />}>
                   <Route index element={<Categories />} />
-                  <Route path='results' element={<Categories />} />
-                  <Route path='create' element={<CategoryCreate />} />
-                  <Route path='delete' element={<CategoryDelete />} />
+                  <Route path="results" element={<Categories />} />
+                  <Route path="create" element={<CategoryCreate />} />
+                  <Route path="delete" element={<CategoryDelete />} />
                 </Route>
 
                 {/* 404 */}
                 <Route
-                  path='/*'
+                  path="/*"
                   element={
                     <MainContainer>
                       <span style={{ fontSize: "1.2rem" }}>
