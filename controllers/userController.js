@@ -10,13 +10,12 @@ const user_update_meta = async (req, res) => {
           id: req.session.userId,
         },
         data: {
-          firstName: firstName,
-          lastName: lastName,
+          firstName: firstName ?? undefined,
+          lastName: lastName ?? undefined,
         },
       });
       res.status(200).send("Updated");
     } catch (e) {
-      console.log(e);
       res.status(500).send("Error {Update Meta}");
     }
   } else {
