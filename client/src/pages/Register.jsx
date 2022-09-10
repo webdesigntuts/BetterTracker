@@ -17,13 +17,8 @@ const Error = ({ error }) => {
 };
 
 const Register = () => {
-  const {
-    mutate: loginHandler,
-    isError: loginError,
-    error: loginErr,
-  } = useLoginUser();
-
-  const { mutate: registerUser } = useRegisterUser();
+  const { mutateAsync: loginHandler, isLoading: loggingIn } = useLoginUser();
+  const { mutate: registerUser, isLoading: registering } = useRegisterUser();
 
   const schema = z.object({
     firstName: z
@@ -43,11 +38,7 @@ const Register = () => {
   const {
     register,
     handleSubmit,
-    formState: {
-      errors,
-      isSubmitting: registering,
-      isSubmitSuccessful: registered,
-    },
+    formState: { errors, isValidating: validating },
   } = useForm({
     resolver: zodResolver(schema),
   });
@@ -59,11 +50,12 @@ const Register = () => {
         action="submit"
         onSubmit={handleSubmit((d) =>
           registerUser(d, {
-            onSuccess: () => {
-              loginHandler({
+            onSuccess: async () => {
+              await loginHandler({
                 email: d.email,
                 password: d.password,
               });
+              queryClient.invalidateQueries("user");
             },
           })
         )}
@@ -91,7 +83,7 @@ const Register = () => {
           Already have and acc ?
         </Link>
       </form>
-      {registering && <Spinner fullPage />}
+      {(validating || registering || loggingIn) && <Spinner fullPage />}
     </MainContainer>
   );
 };
