@@ -3,6 +3,7 @@ import { Title } from "../Titles/Titles";
 import { queryClient } from "../../constants/config";
 import { useState } from "react";
 import { useCategoriesPost } from "../../queries/category";
+import Spinner from "../Spinner";
 
 const CategoryCreate = () => {
   const [ctgName, setCtgName] = useState("");
@@ -45,7 +46,7 @@ const CategoryCreate = () => {
           }
           disabled={isLoading}
         >
-          {isLoading ? "Loading..." : "Create Category'"}
+          Create Category
         </button>
         {isError && (
           <p style={{ color: "red" }}>
@@ -56,6 +57,7 @@ const CategoryCreate = () => {
           <p style={{ color: "green" }}>Category created successfully</p>
         )}
       </form>
+      {isLoading && <Spinner fullPage />}
     </div>
   );
 };
