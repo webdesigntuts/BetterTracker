@@ -1,5 +1,5 @@
 # BETTER ExpenseTrackerApp
-THE OLD CODE LIVES HERE : https://github.com/webdesigntuts/expenseTrackerApp \
+THE OLD CODE LIVES HERE : https://www.buymeacoffee.com/webdesigntutsyt/e/94807 \
 I refactored the old code.You can now delete your account in the /profile path \
 I added loading state to all the api requests.Now a spinner will appear if you request something \
 I added form validation in the /register page and in the /transaction pages \
